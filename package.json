@@ -6,7 +6,8 @@
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate-service": "node src/app/cmd/generate-service.js"
+    "generate-service": "node src/app/cmd/generate-service.js",
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
