@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "watch": "ng build --watch --configuration development",
+    "start": "node server.js",
+    "build": "ng build",
+    "postinstall": "ng build --aot --prod",
     "test": "ng test",
-    "generate-service": "node src/app/cmd/generate-service.js",
-    "heroku-postbuild": "ng build --prod"
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "generate-service": "node src/app/cmd/generate-service.js"
   },
   "private": true,
   "dependencies": {
