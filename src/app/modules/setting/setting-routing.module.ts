@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoleComponent } from './role/role.component';
 import { PermissionComponent } from './permission/permission.component';
 import { IdRoleComponent } from './id-role/id-role.component';
+import { ConfigSystemComponent } from './config-system/config-system.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'permission',
     component: PermissionComponent,
+  },
+  {
+    path: 'config',
+    component: ConfigSystemComponent,
   },
 ];
 

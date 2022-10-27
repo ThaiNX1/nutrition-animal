@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import * as Qs from 'qs';
 import { CommonService } from '../../common/common.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -96,33 +97,39 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             icon: '',
             visible: true,
           },
+          {
+            name: 'Cấu hình hệ thống',
+            url: '/setting/config',
+            icon: '',
+            visible: true,
+          },
         ],
       },
     ];
 
     this.globalVariant.isLoading.subscribe((value) => (this.isLoading = value));
     this.globalVariant.header.subscribe((value) => (this.header = value));
-    // let axiosConfig: AxiosRequestConfig = {
-    //   baseURL: 'http://localhost:5005/',
-    //   timeout: 60000, // 1 phút
-    //   paramsSerializer: function (params) {
-    //     return Qs.stringify(params, { arrayFormat: 'repeat' });
-    //   },
-    // };
-    // const userTokenData = jwt_decode(this.cookie.get('token'));
-    // if (userTokenData) {
-    //   const token = this.cookie.get('token');
-    //   axiosConfig = {
-    //     ...axiosConfig,
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //       'Access-Control-Allow-Origin': '*',
-    //     },
-    //   };
-    //   serviceOptions.axios = axios.create(axiosConfig);
-    // } else {
-    //   this.router.navigate(['auth/login']);
-    // }
+    let axiosConfig: AxiosRequestConfig = {
+      baseURL: environment.serverApi,
+      timeout: 60000, // 1 phút
+      paramsSerializer: function (params) {
+        return Qs.stringify(params, { arrayFormat: 'repeat' });
+      },
+    };
+    const userTokenData = jwt_decode(this.cookie.get('token'));
+    if (userTokenData) {
+      const token = this.cookie.get('token');
+      axiosConfig = {
+        ...axiosConfig,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*',
+        },
+      };
+      serviceOptions.axios = axios.create(axiosConfig);
+    } else {
+      this.router.navigate(['auth/login']);
+    }
   }
 
   logOut(): void {

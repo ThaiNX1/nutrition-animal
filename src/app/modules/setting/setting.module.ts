@@ -19,9 +19,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { FormsModule } from '@angular/forms';
 import { ComponentModule } from '../../common/components/component.module';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { ConfigSystemComponent } from './config-system/config-system.component';
 
 @NgModule({
-  declarations: [RoleComponent, PermissionComponent, IdRoleComponent],
+  declarations: [RoleComponent, PermissionComponent, IdRoleComponent, ConfigSystemComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -8,6 +8,7 @@ import { CommonService } from '../../../common/common.service';
 import { CookieService } from 'ngx-cookie-service';
 import * as yup from 'yup';
 import { FormBuilder, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     const axiosConfig: AxiosRequestConfig = {
-      baseURL: 'http://localhost:5005/',
+      baseURL: environment.serverApi,
       timeout: 60000, // 1 phút
     };
     serviceOptions.axios = axios.create(axiosConfig);

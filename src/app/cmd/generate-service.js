@@ -3,7 +3,7 @@ const { codegen: generateService } = require('swagger-axios-codegen');
 generateService({
   methodNameMode: 'operationId',
   // remoteUrl: 'http://10.20.4.157:4000/docs/json',
-  remoteUrl: 'http://localhost:5005/docs/json',
+  remoteUrl: 'http://localhost:4000/docs/json',
   outputDir: './src/app/services',
   strictNullChecks: true,
   useCustomerRequestInstance: true,
