@@ -1,0 +1,24 @@
+<div class='clearfix'>
+  <nz-upload
+    nzListType='picture-card'
+    [(nzFileList)]='fileList'
+    [nzShowButton]='fileList.length < maxLengthUpload'
+    [nzPreview]='handlePreview'
+    [nzCustomRequest]='uploadImage'
+  >
+    <div>
+      <i nz-icon [nzType]='loading ? "loading": "upload"' nzTheme='outline'></i>
+      <div style='margin-top: 8px'>Tải lên</div>
+    </div>
+  </nz-upload>
+  <nz-modal
+    [nzVisible]='previewVisible'
+    [nzContent]='modalContent'
+    [nzFooter]='null'
+    (nzOnCancel)='previewVisible = false'
+  >
+    <ng-template #modalContent>
+      <img [src]='previewImage' [ngStyle]="{ width: '100%' }" />
+    </ng-template>
+  </nz-modal>
+</div>

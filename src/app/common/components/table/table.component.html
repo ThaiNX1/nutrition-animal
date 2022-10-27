@@ -1,0 +1,87 @@
+<nz-table
+  #basicTable
+  [nzData]="data"
+  [nzNoResult]="noResult"
+  nzShowPagination="true"
+  [nzTotal]="pagination.total"
+  [nzPageSize]="pagination.pageSize"
+  [nzPageIndex]="pagination.current"
+  [nzSize]="'small'"
+  (nzPageIndexChange)="onChangePageIndex($event)"
+>
+  <thead>
+    <tr>
+      <ng-container *ngFor="let column of dataServiceParam.columns">
+        <th [nzWidth]="column.width">{{ column.title }}</th>
+      </ng-container>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of basicTable.data">
+      <tr>
+        <ng-container
+          *ngFor="let column of dataServiceParam.columns; let i = index"
+        >
+          <ng-container *ngIf="column.fields?.[0] !== 'btnActions'">
+            <td>
+              <ng-container *ngIf="column.type === 'link'">
+                <a (click)="redirectLink(column, item)">
+                  {{ getValueObj(item, column.fields, 0) }}
+                </a>
+              </ng-container>
+              <ng-container *ngIf="column.type === 'text'">
+                {{ getValueObj(item, column.fields, 0) }}
+              </ng-container>
+              <!--              <ng-container *ngIf="column.type === 'html'">-->
+              <!--                {{ i }}-->
+              <!--                <div [innerHTML]="item['html-{{i}}']"></div>-->
+              <!--              </ng-container>-->
+            </td>
+          </ng-container>
+          <ng-container *ngIf="column.fields?.[0] === 'btnActions'">
+            <td>
+              <ng-container *ngFor="let button of dataServiceParam.actions">
+                <button
+                  nz-button
+                  nzType="default"
+                  *ngIf="button.type === 'edit'"
+                  (click)="onEdit(button, item)"
+                >
+                  <i nz-icon nzType="edit" nzTheme="outline"></i>
+                </button>
+                <button
+                  nz-button
+                  nzType="default"
+                  *ngIf="button.type === 'view'"
+                  (click)="onView(button, item)"
+                >
+                  <i nz-icon nzType="eye" nzTheme="outline"></i>
+                </button>
+                <button
+                  nz-button
+                  nzType="default"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Bạn muốn xóa bản ghi?"
+                  nzPopconfirmPlacement="topRight"
+                  nzCancelText="Hủy bỏ"
+                  nzOkText="Có"
+                  nzOkType="danger"
+                  (nzOnConfirm)="confirmDelete(button, item)"
+                  *ngIf="button.type === 'delete'"
+                >
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </ng-container>
+            </td>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>
+<ng-template #noResult>
+  <nz-empty
+    class="text-slate-300"
+    [nzNotFoundContent]="'Không có dữ liệu'"
+  ></nz-empty>
+</ng-template>

@@ -1,0 +1,42 @@
+<form [formGroup]='brandForm' id='nzForm' nz-form nzLayout='horizontal' (ngSubmit)='onSave()'>
+  <div nz-row [nzGutter]='16'>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4' nzRequired nzFor='name'>
+          Tên danh mục
+        </nz-form-label>
+        <nz-form-control nzErrorTip='Tên thương hiệu không được trống'>
+          <input nz-input formControlName='brandName' id='name' name='name' placeholder='Tên thương hiệu' />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4' nzRequired>Mã danh mục</nz-form-label>
+        <nz-form-control nzErrorTip='Mã thương hiệu không được trống'>
+          <input nz-input formControlName='brandCode' placeholder='Mã thương hiệu' />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4'>Upload ảnh</nz-form-label>
+        <nz-form-control>
+          <app-upload-image></app-upload-image>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4'>Mô tả</nz-form-label>
+        <nz-form-control>
+          <textarea nz-input placeholder='Nhập nội dung mô tả' [nzAutosize]='{ minRows: 6, maxRows: 8 }'></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<ng-template #btnSave>
+  <button nz-button class='bg-sky-500' nzType='primary' type='submit' form='nzForm'>Lưu</button>
+</ng-template>
+

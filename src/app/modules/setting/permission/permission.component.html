@@ -1,0 +1,63 @@
+<ng-template #btnSave>
+  <button
+    nz-button
+    nzType="primary"
+    type="submit"
+    form="nzForm"
+    style="background-color: #1890ff"
+  >
+    Lưu
+  </button>
+</ng-template>
+<form
+  id="nzForm"
+  nz-form
+  nzLayout="horizontal"
+  (ngSubmit)="onSave()"
+  class="md:px-36 lg:px-36"
+>
+  <div class="w-full h-full">
+    <nz-table
+      #perTable
+      [nzData]="data"
+      nzShowPagination="false"
+      [nzSize]="'small'"
+      nzBordered
+      [nzScroll]="{ x: '1150px', y: '850px' }"
+    >
+      <thead>
+        <tr>
+          <th nzLeft>Chức năng</th>
+          <th *ngFor="let role of roles" [nzAlign]="'center'">
+            {{ role?.name }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let row of data; let rowIndex = index">
+          <tr class="font-bold">
+            <td [colSpan]="roles.length + 1">{{ row?.title }}</td>
+          </tr>
+          <ng-container
+            *ngFor="let rowChild of row.rowChildes; let rowChildIndex = index"
+          >
+            <tr>
+              <td>
+                <span class="pl-5">{{ rowChild?.title }}</span>
+              </td>
+              <ng-container *ngFor="let role of roles; let roleIndex = index">
+                <td class="text-center">
+                  <label
+                    nz-checkbox
+                    name="{{ rowIndex }}-{{ rowChildIndex }}-{{ roleIndex }}"
+                    [(ngModel)]="rowChild.data[role.id || 0].isChecked"
+                  ></label>
+                </td>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+</form>

@@ -1,0 +1,126 @@
+<form id="nzForm" nz-form nzLayout="horizontal" (ngSubmit)="onSave()">
+  <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired nzFor="name">
+          Tên thành viên
+        </nz-form-label>
+        <nz-form-control nzErrorTip="Tên thành viên không được trống">
+          <input nz-input id="name" name="name" placeholder="Tên thành viên" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired>Mật khẩu</nz-form-label>
+        <nz-form-control nzErrorTip="Mật khẩu không được trống">
+          <input nz-input placeholder="Mật khẩu" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired>Email</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="Email" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired>SĐT</nz-form-label>
+        <nz-form-control nzErrorTip="Số điện thoại không được trống">
+          <input nz-input placeholder="Số điện thoại" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8">Giới tính</nz-form-label>
+        <nz-form-control>
+          <nz-select>
+            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8">Ngày sinh</nz-form-label>
+        <nz-form-control>
+          <nz-date-picker
+            class="w-full"
+            nzPlaceHolder="Ngày sinh"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired>CMND/CCCD</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="Số CMND/CCCD" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8">Nơi cấp</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="Nơi cấp CMND/CCCD" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8">Ngày cấp</nz-form-label>
+        <nz-form-control>
+          <nz-date-picker
+            class="w-full"
+            nzPlaceHolder="Ngày cấp CMND/CCCD"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8">Địa chỉ</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="Địa chỉ" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired>Quyền</nz-form-label>
+        <nz-form-control nzErrorTip="Quyền không được trống">
+          <nz-select nzPlaceHolder="Quyền người dùng">
+            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="8" nzRequired>Trạng thái</nz-form-label>
+        <nz-form-control nzErrorTip="Trạng thái không được trống">
+          <nz-select nzPlaceHolder="Trạng thái hoạt động">
+            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<ng-template #btnSave>
+  <button nz-button nzType="primary" type="submit" form="nzForm">Lưu</button>
+</ng-template>

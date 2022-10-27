@@ -1,0 +1,135 @@
+<nz-spin nzTip="Đang xử lý..." [nzSpinning]="isLoading">
+  <nz-layout>
+    <nz-sider
+      nzCollapsible
+      nzBreakpoint="lg"
+      [nzCollapsedWidth]="0"
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null"
+    >
+      <div class="flex items-center justify-center p-3">
+        <img class="w-16" src="assets/images/logo.png" />
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <ng-container *ngFor="let item of sidebarItems">
+          <ng-container *ngIf="item.children">
+            <li nz-submenu [nzTitle]="item.name" [nzIcon]="item.icon">
+              <ul>
+                <li *ngFor="let child of item.children" nz-menu-item>
+                  <a [routerLink]="child.url">{{ child.name }}</a>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="!item.children">
+            <li nz-menu-item>
+              <i nz-icon [nzType]="item.icon"></i>
+              <span>
+                <a [routerLink]="item.url">{{ item.name }}</a>
+              </span>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header class="h-fit">
+        <div class="w-full flex items-center justify-between">
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            (click)="isCollapsed = !isCollapsed"
+          ></i>
+          <a
+            class="mr-7 text-base flex items-center"
+            nz-dropdown
+            [nzDropdownMenu]="menu"
+            nzPlacement="bottomRight"
+          >
+            <i class="mr-1" nz-icon nzType="user" nzTheme="outline"></i>
+            ThaiNX
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a class="flex items-center" (click)="logOut()">
+                  <i class="mr-1" nz-icon nzType="logout" nzTheme="outline"></i
+                  >Đăng xuất
+                </a>
+              </li>
+              <li nz-menu-item>
+                <a class="flex items-center" (click)="logOut()">
+                  <i class="mr-1" nz-icon nzType="idcard" nzTheme="outline"></i
+                  >Tài khoản
+                </a>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </nz-header>
+      <nz-content>
+        <!--        <div class="flex items-center justify-between py-2.5 pr-6">-->
+        <!--          <h3 class="text-zinc-500 text-2xl font-bold">{{ header?.title }}</h3>-->
+        <!--          <div class="flex items-center justify-end gap-2.5">-->
+        <!--            <button-->
+        <!--              *ngIf="header?.buttonRight"-->
+        <!--              nz-button-->
+        <!--              [nzType]="header?.buttonRight?.type"-->
+        <!--              (click)="onClick()"-->
+        <!--            >-->
+        <!--              {{ header.buttonRight?.title }}-->
+        <!--            </button>-->
+        <!--            <ng-container *ngIf="header?.template">-->
+        <!--              <ng-container *ngTemplateOutlet="header?.template"></ng-container>-->
+        <!--            </ng-container>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <ng-container *ngIf="header?.backIcon">
+          <nz-page-header nzBackIcon class="py-2">
+            <nz-page-header-title>{{ header?.title }}</nz-page-header-title>
+            <nz-page-header-extra>
+              <button
+                *ngIf="header?.buttonRight"
+                nz-button
+                [nzType]="header?.buttonRight?.type"
+                (click)="onClick()"
+              >
+                {{ header.buttonRight?.title }}
+              </button>
+              <ng-container *ngIf="header?.template">
+                <ng-container
+                  *ngTemplateOutlet="header?.template"
+                ></ng-container>
+              </ng-container>
+            </nz-page-header-extra>
+          </nz-page-header>
+        </ng-container>
+        <ng-container *ngIf="!header?.backIcon">
+          <nz-page-header class="py-2">
+            <nz-page-header-title>{{ header?.title }}</nz-page-header-title>
+            <nz-page-header-extra>
+              <button
+                *ngIf="header?.buttonRight"
+                nz-button
+                [nzType]="header?.buttonRight?.type"
+                (click)="onClick()"
+              >
+                {{ header.buttonRight?.title }}
+              </button>
+              <ng-container *ngIf="header?.template">
+                <ng-container
+                  *ngTemplateOutlet="header?.template"
+                ></ng-container>
+              </ng-container>
+            </nz-page-header-extra>
+          </nz-page-header>
+        </ng-container>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    </nz-layout>
+  </nz-layout>
+</nz-spin>

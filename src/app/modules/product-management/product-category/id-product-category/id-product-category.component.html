@@ -1,0 +1,55 @@
+<form [formGroup]='categoryForm' id='nzForm' nz-form nzLayout='horizontal' (ngSubmit)='onSave()'>
+  <div nz-row [nzGutter]='16'>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4' nzRequired nzFor='name'>
+          Tên danh mục
+        </nz-form-label>
+        <nz-form-control nzErrorTip='Tên danh mục không được trống'>
+          <input nz-input formControlName='categoryName' id='name' name='categoryName' placeholder='Tên danh mục'
+                 [(ngModel)]='category.name' />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4' nzRequired>Mã danh mục</nz-form-label>
+        <nz-form-control nzErrorTip='Mã danh mục không được trống'>
+          <input nz-input formControlName='categoryCode' placeholder='Mã danh mục' name='categoryCode'
+                 [(ngModel)]='category.code' />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4'>Danh mục cha</nz-form-label>
+        <nz-form-control>
+          <nz-select nzPlaceHolder='Danh mục cha' formControlName='categoryParent' nzAllowClear name='categoryParent'
+                     [(ngModel)]='category.parentId'>
+            <nz-option *ngFor='let category of categories' [nzValue]='category.id' [nzLabel]='category.name'></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4'>Upload ảnh</nz-form-label>
+        <nz-form-control>
+          <app-upload-image [fileList]='imageList' (urlImage)='getUrlImage($event)'></app-upload-image>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='24'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='4'>Mô tả</nz-form-label>
+        <nz-form-control>
+          <textarea nz-input placeholder='Nhập nội dung mô tả' [nzAutosize]='{ minRows: 6, maxRows: 8 }'></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<ng-template #btnSave>
+  <button nz-button class='bg-sky-500' nzType='primary' type='submit' form='nzForm'>Lưu</button>
+</ng-template>
+

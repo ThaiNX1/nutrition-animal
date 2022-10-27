@@ -1,0 +1,54 @@
+<ng-template #btnSave>
+  <button
+    *ngIf="!isView"
+    nz-button
+    type="submit"
+    nzType="primary"
+    form="nzForm"
+    style="background-color: #1890ff"
+  >
+    Lưu
+  </button>
+</ng-template>
+<form
+  id="nzForm"
+  nz-form
+  nzLayout="horizontal"
+  (ngSubmit)="onSave()"
+  class="md:px-36 lg:px-36"
+>
+  <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="4" nzRequired nzFor="name">
+          Tên nhóm quyền
+        </nz-form-label>
+        <nz-form-control nzErrorTip="Tên nhóm quyền không được trống">
+          <input
+            nz-input
+            id="name"
+            name="name"
+            placeholder="Tên nhóm quyền"
+            [(ngModel)]="role.name"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan="4" nzRequired>Quyền</nz-form-label>
+        <nz-form-control nzErrorTip="Quyền không được trống">
+          <nz-select class="w-full" [(ngModel)]="role.type" name="type">
+            <nz-option
+              *ngFor="let roleType of roleTypes"
+              [nzValue]="roleType.value"
+              [nzLabel]="roleType.key"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
