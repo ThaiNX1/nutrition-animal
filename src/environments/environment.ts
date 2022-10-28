@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverApi: 'https://web-sever-thainx.herokuapp.com/',
+  serverApi: 'https://web-sever-thainx.herokuapp.com',
 };
 
 /*

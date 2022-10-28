@@ -4,6 +4,7 @@ import { RoleComponent } from './role/role.component';
 import { PermissionComponent } from './permission/permission.component';
 import { IdRoleComponent } from './id-role/id-role.component';
 import { ConfigSystemComponent } from './config-system/config-system.component';
+import { IdConfigSystemComponent } from './id-config-system/id-config-system.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'config',
     component: ConfigSystemComponent,
+  },
+  {
+    path: 'config/:id',
+    component: IdConfigSystemComponent,
   },
 ];
 

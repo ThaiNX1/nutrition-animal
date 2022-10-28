@@ -12,7 +12,6 @@ import { LayoutAdminModule } from './layouts/admin/layout-admin.module';
 import { CommonService } from './common/common.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CookieService } from 'ngx-cookie-service';
-import { SettingModule } from './modules/setting/setting.module';
 
 registerLocaleData(en);
 
@@ -25,7 +24,6 @@ registerLocaleData(en);
     HttpClientModule,
     AuthModule,
     LayoutAdminModule,
-    SettingModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

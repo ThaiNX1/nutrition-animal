@@ -16,13 +16,20 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentModule } from '../../common/components/component.module';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { ConfigSystemComponent } from './config-system/config-system.component';
+import { IdConfigSystemComponent } from './id-config-system/id-config-system.component';
 
 @NgModule({
-  declarations: [RoleComponent, PermissionComponent, IdRoleComponent, ConfigSystemComponent],
+  declarations: [
+    RoleComponent,
+    PermissionComponent,
+    IdRoleComponent,
+    ConfigSystemComponent,
+    IdConfigSystemComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,6 +50,7 @@ import { ConfigSystemComponent } from './config-system/config-system.component';
     NzDatePickerModule,
     ComponentModule,
     NzCheckboxModule,
+    ReactiveFormsModule,
   ],
 })
 export class SettingModule {}

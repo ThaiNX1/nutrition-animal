@@ -1,0 +1,35 @@
+<form id='nzForm' nz-form nzLayout='horizontal' (ngSubmit)='onSave()' [formGroup]='configForm'>
+  <div nz-row [nzGutter]='[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]'>
+    <div nz-col nzSpan='8'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='8' nzRequired nzFor='key'>
+          Key
+        </nz-form-label>
+        <nz-form-control nzErrorTip='Key không được trống'>
+          <nz-select formControlName='key'>
+            <nz-option *ngFor='let key of configKeys' [nzValue]='key.value' [nzLabel]='key.label'></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='8'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='8'>Tên cấu hình</nz-form-label>
+        <nz-form-control nzErrorTip='Mật khẩu không được trống'>
+          <input nz-input placeholder='Tên cấu hình' formControlName='name'/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan='8'>
+      <nz-form-item>
+        <nz-form-label nz-col nzSpan='8'>Giá trị</nz-form-label>
+        <nz-form-control>
+          <input type='number' nz-input placeholder='Giá trị' formControlName='value'/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<ng-template #btnSave>
+  <button nz-button nzType='primary' class='bg-sky-500' type='submit' form='nzForm'>Lưu</button>
+</ng-template>
