@@ -55,6 +55,7 @@
       <th>Sđt</th>
       <th>Quyền</th>
       <th>Ngày đăng ký</th>
+      <th>Số dư</th>
       <th>Trạng thái</th>
       <th>Thao tác</th>
     </tr>
@@ -66,6 +67,7 @@
       <td>{{ item.tel }}</td>
       <td>{{ item.role?.name }}</td>
       <td>{{ item.createdAt | date: 'dd/MM/yyyy' }}</td>
+      <td>{{item.wallet?.amount | number}}</td>
       <td>
         <ng-container>
           <nz-tag *ngIf="item.status === 'active'" nzColor='success'>

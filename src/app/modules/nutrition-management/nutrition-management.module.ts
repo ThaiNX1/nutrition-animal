@@ -15,9 +15,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { FormsModule } from '@angular/forms';
+import { CalculateComponent } from './calculate/calculate.component';
 
 @NgModule({
-  declarations: [IngredientComponent],
+  declarations: [IngredientComponent, CalculateComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
     page: 1,
     sort: ['createdAt,ASC', 'fullName,ASC'],
     filter: [],
-    join: ['role'],
+    join: ['role', 'wallet'],
   };
   data: any;
 
