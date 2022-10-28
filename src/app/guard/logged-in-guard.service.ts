@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -6,12 +6,12 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router, private cookie: CookieService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -21,11 +21,10 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-
-    if (localStorage.getItem('currentUser')) {
+    if (this.cookie.get('token')) {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      window.location.href = '/login';
       return false;
     }
   }

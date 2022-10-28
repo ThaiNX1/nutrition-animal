@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule)
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
@@ -15,38 +15,44 @@ const routes: Routes = [
       {
         path: 'user',
         loadChildren: () =>
-          import('./modules/user/user.module').then((m) => m.UserModule)
+          import('./modules/user/user.module').then((m) => m.UserModule),
       },
       {
         path: 'dashboard',
         loadChildren: () =>
           import('./modules/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
-          )
+          ),
       },
       {
         path: 'setting',
         loadChildren: () =>
           import('./modules/setting/setting.module').then(
             (m) => m.SettingModule
-          )
+          ),
       },
       {
         path: 'product',
         loadChildren: () =>
           import('./modules/product-management/product-management.module').then(
             (m) => m.ProductManagementModule
-          )
-      }
-    ]
-  }
+          ),
+      },
+      {
+        path: 'nutrition',
+        loadChildren: () =>
+          import(
+            './modules/nutrition-management/nutrition-management.module'
+          ).then((m) => m.NutritionManagementModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
