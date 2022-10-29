@@ -18,6 +18,7 @@ import { environment } from '../../../../environments/environment';
 export class LoginComponent implements OnInit {
   dto: LoginDto = new LoginDto();
   userForm: any;
+  isLoading = false;
 
   constructor(
     private globalVariable: GlobalVariable,
@@ -40,17 +41,17 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     if (!this.common.validateForm(this.userForm)) return;
-    this.globalVariable.setIsLoading(true);
+    this.isLoading = true;
     AuthService.authControllerLogin({
       body: this.dto,
     })
       .then((response) => {
-        this.globalVariable.setIsLoading(false);
+        this.isLoading = false;
         this.cookie.set('token', String(response.token), { path: '/' });
         window.location.href = '/dashboard';
       })
       .catch((err) => {
-        this.globalVariable.setIsLoading(false);
+        this.isLoading = false;
         this.common.alertError('', err);
       });
   }

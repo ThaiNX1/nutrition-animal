@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  isLoading = false;
 
   constructor(
     private globalVariable: GlobalVariable,
@@ -81,12 +82,15 @@ export class RegisterComponent implements OnInit {
       gender: EnumRegisterDtoGender.male,
       email: this.registerForm.value.email,
     };
+    this.isLoading = true;
     AuthService.authControllerRegister({ body: request })
       .then((res) => {
+        this.isLoading = false;
         this.common.alertSuccess('Đăng ký thành công');
         this.router.navigate(['/login']);
       })
       .catch((err) => {
+        this.isLoading = false;
         this.common.alertError('Đăng ký thất bại');
       });
   }

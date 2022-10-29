@@ -1,60 +1,62 @@
-<div class="w-full h-full flex flex-col items-center justify-center">
-  <div class="mb-7">
-    <img class="w-32 h-32" src="assets/images/logo.png" />
-  </div>
-  <form
-    nz-form
-    [formGroup]="userForm"
-    class="login-form"
-    (ngSubmit)="submitForm()"
-  >
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Chưa nhập tên đăng nhập">
-        <nz-input-group nzPrefixIcon="user" [nzSize]="'large'">
-          <input
-            formControlName="tel"
-            type="text"
-            nz-input
-            placeholder="Số điện thoại"
-            [(ngModel)]="dto.tel"
-            name="userName"
-          />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Chưa nhập mật khẩu">
-        <nz-input-group nzPrefixIcon="lock" [nzSize]="'large'">
-          <input
-            formControlName="password"
-            type="password"
-            nz-input
-            placeholder="Mật khẩu"
-            [(ngModel)]="dto.password"
-            name="password"
-          />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <div nz-row class="login-form-margin">
-      <div nz-col [nzSpan]="12">
-        <label nz-checkbox>
-          <span>Ghi nhớ</span>
-        </label>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <a class="login-form-forgot text-sky-500">Quên mật khẩu</a>
-      </div>
+<nz-spin nzTip='Đang xử lý...' [nzSpinning]='isLoading'>
+  <div class='w-full h-full flex flex-col items-center justify-center'>
+    <div class='mb-7'>
+      <img class='w-32 h-32' src='assets/images/logo.png' />
     </div>
-    <button
-      nz-button
-      class="login-form-button login-form-margin"
-      [nzType]="'primary'"
-      nzSize="large"
+    <form
+      nz-form
+      [formGroup]='userForm'
+      class='login-form'
+      (ngSubmit)='submitForm()'
     >
-      Đăng nhập
-    </button>
-    Hoặc
-    <a class="text-sky-500">Đăng ký ngay!</a>
-  </form>
-</div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip='Chưa nhập tên đăng nhập'>
+          <nz-input-group nzPrefixIcon='user' [nzSize]="'large'">
+            <input
+              formControlName='tel'
+              type='text'
+              nz-input
+              placeholder='Số điện thoại'
+              [(ngModel)]='dto.tel'
+              name='userName'
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip='Chưa nhập mật khẩu'>
+          <nz-input-group nzPrefixIcon='lock' [nzSize]="'large'">
+            <input
+              formControlName='password'
+              type='password'
+              nz-input
+              placeholder='Mật khẩu'
+              [(ngModel)]='dto.password'
+              name='password'
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class='login-form-margin'>
+        <div nz-col [nzSpan]='12'>
+          <label nz-checkbox>
+            <span>Ghi nhớ</span>
+          </label>
+        </div>
+        <div nz-col [nzSpan]='12'>
+          <a class='login-form-forgot text-sky-500'>Quên mật khẩu</a>
+        </div>
+      </div>
+      <button
+        nz-button
+        class='login-form-button login-form-margin'
+        [nzType]="'primary'"
+        nzSize='large'
+      >
+        Đăng nhập
+      </button>
+      Hoặc
+      <a class='text-sky-500'>Đăng ký ngay!</a>
+    </form>
+  </div>
+</nz-spin>

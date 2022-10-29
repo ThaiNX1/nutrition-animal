@@ -91,6 +91,12 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             icon: '',
             visible: true,
           },
+          {
+            name: 'Tính toán',
+            url: '/nutrition/calculate',
+            icon: '',
+            visible: true,
+          },
           // {
           //   name: 'Thương hiệu',
           //   url: '/product/brand',

@@ -8,6 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
 import { RegisterComponent } from './register/register.component'
 import { NzSelectModule } from 'ng-zorro-antd/select'
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -20,6 +21,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select'
     NzButtonModule,
     NzCheckboxModule,
     NzSelectModule,
+    NzSpinModule,
   ],
 })
 export class AuthModule {}

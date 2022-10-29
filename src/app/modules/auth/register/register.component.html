@@ -1,77 +1,79 @@
-<div class='w-full h-full flex flex-col items-center justify-center'>
-  <div class='w-full flex justify-center'>
-    <h1 class='uppercase font-bold text-blue-500 py-2 mb-4 text-3xl'>Đăng ký thành viên mới</h1>
+<nz-spin nzTip='Đang xử lý...' [nzSpinning]='isLoading'>
+  <div class='w-full h-full flex flex-col items-center justify-center'>
+    <div class='w-full flex justify-center'>
+      <h1 class='uppercase font-bold text-blue-500 py-2 mb-4 text-3xl'>Đăng ký thành viên mới</h1>
+    </div>
+    <form nz-form class='w-full md:w-1/2' [formGroup]='registerForm'>
+      <nz-form-item>
+        <nz-form-label [nzSm]='6' [nzXs]='24' nzRequired nzFor='email'>
+          E-mail
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]='14'
+          [nzXs]='24'
+          nzErrorTip='E-mail không được trống!'
+          [nzValidateStatus]='registerForm.value.validateEmail'
+        >
+          <input nz-input id='email' nzSize='large' formControlName='email' />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]='6' [nzXs]='24' nzFor='phoneNumber' nzRequired>
+          Số điện thoại
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]='14'
+          [nzXs]='24'
+          nzErrorTip='Số điện thoại không được trống!'
+          [nzValidateStatus]='registerForm.value.validatePhone'
+        >
+          <input id="'phoneNumber'" nz-input nzSize='large' formControlName='phone' />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label
+          [nzSm]='6'
+          [nzXs]='24'
+          nzFor='nickname'
+          nzRequired
+        >
+          <span>Họ tên</span>
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]='14'
+          [nzXs]='24'
+          nzErrorTip='Họ tên không được trống!'
+          [nzValidateStatus]='registerForm.value.validateFullName'
+        >
+          <input nz-input id='nickname' nzSize='large' formControlName='fullName' />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]='6' [nzXs]='24' nzFor='password' nzRequired>
+          Mật khẩu
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]='14'
+          [nzXs]='24'
+          nzErrorTip='Mật khẩu không được trống!'
+          [nzValidateStatus]='registerForm.value.validatePassword'
+        >
+          <input nz-input type='password' id='password' nzSize='large' formControlName='password' />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]='6' [nzXs]='24' nzFor='checkPassword' nzRequired>
+          Nhập lại mật khẩu
+        </nz-form-label>
+        <nz-form-control [nzSm]='14' [nzXs]='24'
+                         [nzErrorTip]='registerForm.value.errorTplPasswordConfirm'
+                         [nzValidateStatus]='registerForm.value.validatePasswordConfirm'>
+          <input nz-input type='password' id='checkPassword' nzSize='large' formControlName='confirmPassword' />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <div class='w-full flex justify-center'>
+      <button nz-button nzType='primary' (click)='submitForm()'>Đăng ký</button>
+    </div>
   </div>
-  <form nz-form class='w-full md:w-1/2' [formGroup]='registerForm'>
-    <nz-form-item>
-      <nz-form-label [nzSm]='6' [nzXs]='24' nzRequired nzFor='email'>
-        E-mail
-      </nz-form-label>
-      <nz-form-control
-        [nzSm]='14'
-        [nzXs]='24'
-        nzErrorTip='E-mail không được trống!'
-        [nzValidateStatus]='registerForm.value.validateEmail'
-      >
-        <input nz-input id='email' nzSize='large' formControlName='email' />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]='6' [nzXs]='24' nzFor='phoneNumber' nzRequired>
-        Số điện thoại
-      </nz-form-label>
-      <nz-form-control
-        [nzSm]='14'
-        [nzXs]='24'
-        nzErrorTip='Số điện thoại không được trống!'
-        [nzValidateStatus]='registerForm.value.validatePhone'
-      >
-        <input id="'phoneNumber'" nz-input nzSize='large' formControlName='phone' />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label
-        [nzSm]='6'
-        [nzXs]='24'
-        nzFor='nickname'
-        nzRequired
-      >
-        <span>Họ tên</span>
-      </nz-form-label>
-      <nz-form-control
-        [nzSm]='14'
-        [nzXs]='24'
-        nzErrorTip='Họ tên không được trống!'
-        [nzValidateStatus]='registerForm.value.validateFullName'
-      >
-        <input nz-input id='nickname' nzSize='large' formControlName='fullName' />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]='6' [nzXs]='24' nzFor='password' nzRequired>
-        Mật khẩu
-      </nz-form-label>
-      <nz-form-control
-        [nzSm]='14'
-        [nzXs]='24'
-        nzErrorTip='Mật khẩu không được trống!'
-        [nzValidateStatus]='registerForm.value.validatePassword'
-      >
-        <input nz-input type='password' id='password' nzSize='large' formControlName='password' />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]='6' [nzXs]='24' nzFor='checkPassword' nzRequired>
-        Nhập lại mật khẩu
-      </nz-form-label>
-      <nz-form-control [nzSm]='14' [nzXs]='24'
-                       [nzErrorTip]='registerForm.value.errorTplPasswordConfirm'
-                       [nzValidateStatus]='registerForm.value.validatePasswordConfirm'>
-        <input nz-input type='password' id='checkPassword' nzSize='large' formControlName='confirmPassword' />
-      </nz-form-control>
-    </nz-form-item>
-  </form>
-  <div class='w-full flex justify-center'>
-    <button nz-button nzType='primary' (click)='submitForm()'>Đăng ký</button>
-  </div>
-</div>
+</nz-spin>
