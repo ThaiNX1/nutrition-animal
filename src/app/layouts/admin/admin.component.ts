@@ -55,29 +55,54 @@ export class AdminComponent implements OnInit, AfterViewChecked {
         icon: 'team',
         visible: true,
       },
+      // {
+      //   name: 'Sản phẩm',
+      //   url: '',
+      //   icon: 'code-sandbox',
+      //   children: [
+      //     {
+      //       name: 'Danh mục',
+      //       url: '/product/category',
+      //       icon: '',
+      //       visible: true,
+      //     },
+      //     {
+      //       name: 'Thương hiệu',
+      //       url: '/product/brand',
+      //       icon: '',
+      //       visible: true,
+      //     },
+      //     {
+      //       name: 'Dánh sách sản phẩm',
+      //       url: '/product',
+      //       icon: '',
+      //       visible: true,
+      //     },
+      //   ],
+      // },
       {
-        name: 'Sản phẩm',
+        name: 'Dinh dưỡng',
         url: '',
         icon: 'code-sandbox',
         children: [
           {
-            name: 'Danh mục',
-            url: '/product/category',
+            name: 'Nguyên liệu',
+            url: '/nutrition/ingredient',
             icon: '',
             visible: true,
           },
-          {
-            name: 'Thương hiệu',
-            url: '/product/brand',
-            icon: '',
-            visible: true,
-          },
-          {
-            name: 'Dánh sách sản phẩm',
-            url: '/product',
-            icon: '',
-            visible: true,
-          },
+          // {
+          //   name: 'Thương hiệu',
+          //   url: '/product/brand',
+          //   icon: '',
+          //   visible: true,
+          // },
+          // {
+          //   name: 'Dánh sách sản phẩm',
+          //   url: '/product',
+          //   icon: '',
+          //   visible: true,
+          // },
         ],
       },
       {

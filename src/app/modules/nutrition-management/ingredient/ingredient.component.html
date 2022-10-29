@@ -4,21 +4,10 @@
       <div nz-col [nzSpan]='8'>
         <nz-form-item class='mb-0'>
           <nz-form-label [nzSpan]='10' class='text-left'>
-            Nhập tên hoặc SĐT
+            Nhập ký tự tìm kiếm
           </nz-form-label>
           <nz-form-control [nzSpan]='14'>
             <input nz-input name='search' type='text' id='search' />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]='8'>
-        <nz-form-item class='mb-0'>
-          <nz-form-label [nzSpan]='6' class='text-left'> Quyền</nz-form-label>
-          <nz-form-control [nzSpan]='18'>
-            <nz-select>
-              <nz-option nzValue='jack' nzLabel='Jack'></nz-option>
-              <nz-option nzValue='lucy' nzLabel='Lucy'></nz-option>
-            </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -40,12 +29,12 @@
 <nz-card class='w-full' [nzTitle]='cardTitle' [nzExtra]='cardExtra'>
   <nz-table
     #basicTable
-    [nzData]='data.data'
+    [nzData]='result.data'
     [nzNoResult]='noResult'
     [nzShowPagination]='true'
-    [nzTotal]='data.total'
+    [nzTotal]='result.total || 0'
     [nzPageSize]='10'
-    [nzPageIndex]='data?.page || 1'
+    [nzPageIndex]='result?.page || 1'
   >
     <thead>
     <tr>
@@ -56,6 +45,9 @@
     </thead>
     <tbody>
     <tr *ngFor='let item of basicTable.data'>
+      <td>{{item.code}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.otherName}}</td>
     </tr>
     </tbody>
   </nz-table>
