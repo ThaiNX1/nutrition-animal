@@ -16,6 +16,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { FormsModule } from '@angular/forms';
 import { CalculateComponent } from './calculate/calculate.component';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
   declarations: [IngredientComponent, CalculateComponent],
@@ -37,6 +39,8 @@ import { CalculateComponent } from './calculate/calculate.component';
     NzCardModule,
     NzInputModule,
     NzDatePickerModule,
+    NzDividerModule,
+    NzCheckboxModule,
   ],
 })
 export class NutritionManagementModule {}
