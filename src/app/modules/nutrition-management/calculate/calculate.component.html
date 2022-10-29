@@ -1,11 +1,11 @@
 <div class='w-full grid grid-cols-3 gap-3'>
   <div class='col-span-3 md:col-span-1'>
     <div class='w-full border rounded flex flex-col'>
-      <h3 class='uppercase font-bold text-xl'>Danh sách nguyên liệu</h3>
+      <h3 class='uppercase font-bold text-xl sticky'>Danh sách nguyên liệu</h3>
       <nz-divider></nz-divider>
       <div class='w-full h-full overflow-auto flex flex-col'>
         <ng-container *ngFor='let ing of ingredients'>
-          <label [name]='"ing-"+ ing.id' nz-checkbox [(ngModel)]='ing.checked'
+          <label class='ml-2' [name]='"ing-"+ ing.id' nz-checkbox [(ngModel)]='ing.checked'
                  (ngModelChange)='onCheckIng(ing)' [ngModelOptions]='{standalone: true}'>
             {{ing?.name || ing?.otherName}}
           </label>
