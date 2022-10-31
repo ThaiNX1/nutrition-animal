@@ -1,1 +1,32 @@
-
+<div class="w-full flex flex-col items-center justify-center">
+  <h3>{{user.tel}}</h3>
+  <p>Ngày gia nhập: <strong>{{user.createdAt | date:'dd/MM/yyyy HH:mm'}}</strong></p>
+  <p>Email: <strong>{{user.email}}</strong></p>
+  <ng-container *ngIf="isChangePassword">
+    <form nz-form [formGroup]="changePasswordForm" class="login-form">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="oldPassword" placeholder="Nhập mật khẩu cũ"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="newPassword" placeholder="Nhập mật khẩu mới"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="flex items-center">
+        <button type="button" nz-button nzType="primary" (click)="submitForm()">Cập nhật</button>
+        <button type="button" nz-button nzType="primary" class="bg-white text-red-500 ml-2"
+                (click)="isChangePassword = false">
+          Hủy
+        </button>
+      </div>
+    </form>
+  </ng-container>
+  <a *ngIf="!isChangePassword" class="font-bold text-blue-600" (click)="isChangePassword = true">Đổi mật khẩu</a>
+  <p>Số dư: <strong class="text-red-600"></strong></p>
+</div>
