@@ -1,5 +1,5 @@
-<div class='w-full grid grid-cols-3 gap-3'>
-  <div class='col-span-3 md:col-span-1'>
+<div class='w-full grid grid-cols-5 gap-3'>
+  <div class='col-span-5 md:col-span-1'>
     <h3 class='uppercase font-bold text-xl sticky'>Danh sách nguyên liệu</h3>
     <div class='w-full border rounded flex flex-col'>
       <div class='w-full h-full overflow-auto flex flex-col'>
@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  <div class='col-span-3 md:col-span-2'>
+  <div class='col-span-5 md:col-span-4'>
     <form nz-form [formGroup]='infoForm' class='ant-advanced-search-form'>
       <h3 class='uppercase font-bold text-xl sticky'>THông tin</h3>
       <div class='w-full border rounded p-2'>
@@ -66,8 +66,8 @@
             </nz-form-item>
           </div>
           <div nz-col [nzSpan]='8' class='flex justify-end'>
-            <button nz-button nzType='primary' class='mr-2'>Tính toán</button>
-            <button nz-button nzType='primary' class='flex items-center justify-center'>
+            <button nz-button nzType='primary' class='mr-2' (click)='onCalculate()'>Tính toán</button>
+            <button nz-button nzType='primary' class='flex items-center justify-center' (click)='onPrint()'>
               <span nz-icon nzType='printer' nzTheme='outline'></span>
             </button>
           </div>
@@ -78,72 +78,104 @@
       <div class='w-full p-2 grid grid-cols-3'>
         <!-- Danh sách NL -->
         <div class='col-span-3 md:col-span-2 mb-3 border-r pr-2'>
-          <div nz-row [nzGutter]='24'>
-            <div nz-col [nzSpan]='12'>
+          <div nz-row [nzGutter]='24' class='mb-4'>
+            <div nz-col [nzSpan]='8'>
               <p class='font-bold'>Tên nguyên liệu</p>
             </div>
             <div nz-col [nzSpan]='4'>
-              <p class='font-bold'>Cân nặng</p>
+              <p class='font-bold'>Cân nặng(kg)</p>
+              <p class='text-red-500 font-bold'>{{totalWeight | number}}</p>
             </div>
             <div nz-col [nzSpan]='4'>
-              <p class='font-bold'>Đơn giá</p>
+              <p class='font-bold'>Đơn giá(vnđ)</p>
             </div>
-            <div nz-col [nzSpan]='4'>
-              <p class='font-bold'>Thành tiền</p>
+            <div nz-col [nzSpan]='8'>
+              <p class='font-bold'>Thành tiền(vnđ)</p>
+              <p class='text-red-500 font-bold'>{{totalPrice | number}}</p>
             </div>
           </div>
           <ng-container formArrayName='items'>
             <ng-container *ngFor='let item of items.controls;index as i' [formGroupName]='i'>
-              <div nz-row [nzGutter]='24'>
-                <div nz-col [nzSpan]='12'>
-                  <p>{{item.value.ingName}}</p>
+              <div nz-row [nzGutter]='24' class='pb-2 flex items-center'>
+                <div nz-col [nzSpan]='7'>
+                  <input *ngIf='item.value.isAddNew' nz-input formControlName='ingName'
+                         placeholder='Nhập tên nguyên liệu'>
+                  <p *ngIf='!item.value.isAddNew'>{{item.value.ingName}}</p>
                 </div>
                 <div nz-col [nzSpan]='4'>
-                  <nz-form-item>
+                  <nz-form-item class='mb-0'>
                     <nz-form-control>
                       <input nz-input formControlName='ingWeight'>
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div nz-col [nzSpan]='4'>
-                  <nz-form-item>
+                  <nz-form-item class='mb-0'>
                     <nz-form-control>
                       <input nz-input formControlName='ingPrice'>
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]='4'>
-                  <nz-form-item>
+                <div nz-col [nzSpan]='7'>
+                  <nz-form-item class='mb-0'>
                     <nz-form-control>
                       <input formControlName='ingTotalPrice' nz-input [disabled]='true'>
                     </nz-form-control>
                   </nz-form-item>
                 </div>
+                <div nz-col [nzSpan]='2'>
+                  <a nz-button nzType='text' class='flex items-center justify-center' (click)='onRemoveIng(i)'>
+                    <span nz-icon nzType="delete" nzTheme="outline" class='text-red-500 font-bold'></span>
+                  </a>
+                </div>
               </div>
             </ng-container>
           </ng-container>
+          <div class='w-full flex justify-end py-1'>
+            <button nz-button nzShape='circle' nzType='primary' class='flex items-center justify-center'
+                    (click)='onAddNewIng()'>
+              <span nz-icon nzType='plus' nzTheme='outline'></span>
+            </button>
+          </div>
         </div>
         <!-- Kết quả tính toán -->
-        <div class='col-span-3 md:col-span-1'>
+        <div class='col-span-3 md:col-span-1 pl-2'>
+          <div class='w-full'>
+            <h3 class='uppercase font-bold text-red-500 text-center text-lg'>Bảng giá trị dinh dưỡng</h3>
+            <div nz-row class='my-3'>
+              <div nz-col [nzSpan]='10'>
+                <p class='font-bold text-orange-400'>Nutrition</p>
+              </div>
+              <div nz-col [nzSpan]='8'>
+                <p class='font-bold text-orange-400 pl-1'>Value (<strong
+                  class='text-black'>{{totalPercentage | number:'1.0-2'}}</strong>%)</p>
+              </div>
+              <div nz-col [nzSpan]='6'>
+                <p class='font-bold text-orange-400 pl-1'>ĐVT</p>
+              </div>
+            </div>
+          </div>
           <ng-container formArrayName='itemCalculates'>
             <ng-container *ngFor='let item of itemCalculates.controls;index as i' [formGroupName]='i'>
-              <div nz-row [nzGutter]='24'>
-                <div nz-col [nzSpan]='16'>
+              <div nz-row [nzGutter]='24' class='pb-1 flex items-center'>
+                <div nz-col [nzSpan]='10'>
                   <p>{{item.value.name}}</p>
                 </div>
-                <div nz-col [nzSpan]='4'>
-                  <nz-form-item>
+                <div nz-col [nzSpan]='8'>
+                  <nz-form-item class='mb-0'>
                     <nz-form-control>
-                      <input formControlName='value'>
+                      <input *ngIf='item.value.isEdit' formControlName='value' nz-input (change)='getTotalPercentage()'>
+                      <p *ngIf='!item.value.isEdit' class='font-bold text-black'>{{item.value.value}}</p>
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div nz-col [nzSpan]='4'>
-                  <nz-form-item>
-                    <nz-form-control>
-                      <p>{{item.value.unit}}</p>
-                    </nz-form-control>
-                  </nz-form-item>
+                  <p>{{item.value.unit}}</p>
+                </div>
+                <div nz-col [nzSpan]='2'>
+                  <a nz-button nzType='text' class='flex items-center justify-center' (click)='onEdit(i)'>
+                    <span nz-icon nzType='edit' nzTheme='outline' class='text-blue-600'></span>
+                  </a>
                 </div>
               </div>
             </ng-container>

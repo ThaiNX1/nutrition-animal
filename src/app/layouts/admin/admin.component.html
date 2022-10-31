@@ -13,10 +13,10 @@
       <ul nz-menu nzTheme='dark' nzMode='inline'>
         <ng-container *ngFor='let item of sidebarItems'>
           <ng-container *ngIf='item.children'>
-            <li *ngIf='item.visible' nz-submenu [nzTitle]='item.name' [nzIcon]='item.icon'>
+            <li nz-submenu [nzTitle]='item.name' [nzIcon]='item.icon'>
               <ul>
                 <li *ngFor='let child of item.children' nz-menu-item>
-                  <a [routerLink]='child.url'>{{ child.name }}</a>
+                  <a *ngIf='child.visible' [routerLink]='child.url'>{{ child.name }}</a>
                 </li>
               </ul>
             </li>
