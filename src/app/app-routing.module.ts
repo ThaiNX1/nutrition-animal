@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './layouts/admin/admin.component';
-import { AuthGuard } from './guard/logged-in-guard.service';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {AdminComponent} from './layouts/admin/admin.component';
+import {AuthGuard} from './guard/logged-in-guard.service';
 
 const routes: Routes = [
   {
@@ -53,7 +53,15 @@ const routes: Routes = [
         loadChildren: () =>
           import(
             './modules/nutrition-management/nutrition-management.module'
-          ).then((m) => m.NutritionManagementModule),
+            ).then((m) => m.NutritionManagementModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import(
+            './modules/account/account.module'
+            ).then((m) => m.AccountModule),
         canActivate: [AuthGuard],
       },
     ],
@@ -62,8 +70,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

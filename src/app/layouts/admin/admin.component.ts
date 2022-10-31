@@ -7,17 +7,17 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { GlobalVariable } from '../../common/global-variable';
-import { INavData, navItems } from './nav/nav';
-import axios, { AxiosRequestConfig } from 'axios';
-import { serviceOptions } from '../../services/serviceOptions';
+import {GlobalVariable} from '../../common/global-variable';
+import {INavData, navItems} from './nav/nav';
+import axios, {AxiosRequestConfig} from 'axios';
+import {serviceOptions} from '../../services/serviceOptions';
 import jwt_decode from 'jwt-decode';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 import * as Qs from 'qs';
-import { CommonService } from '../../common/common.service';
-import { environment } from 'src/environments/environment';
-import { hasPermission } from '../../utils/util';
+import {CommonService} from '../../common/common.service';
+import {environment} from 'src/environments/environment';
+import {hasPermission} from '../../utils/util';
 
 @Component({
   selector: 'app-admin',
@@ -36,7 +36,8 @@ export class AdminComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private cookie: CookieService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngAfterViewChecked(): void {
     this.cdr.detectChanges();
@@ -169,35 +170,15 @@ export class AdminComponent implements OnInit, AfterViewChecked {
         url: '',
         icon: 'usergroup-add',
         children: [
-          // {
-          //   name: 'Nhóm quyền',
-          //   url: '/setting/role',
-          //   icon: '',
-          //   visible: hasPermission(user, [
-          //     'ingredient_getOneBase',
-          //     'ingredient_getManyBase',
-          //     'ingredient_createOneBase',
-          //   ]),
-          // },
-          // {
-          //   name: 'Phân quyền',
-          //   url: '/setting/permission',
-          //   icon: '',
-          //   visible: hasPermission(user, [
-          //     'ingredient_getOneBase',
-          //     'ingredient_getManyBase',
-          //     'ingredient_createOneBase',
-          //   ]),
-          // },
           {
             name: 'Hồ sơ',
-            url: '/setting/config',
+            url: '/account/info',
             icon: '',
-            visible: hasPermission(user, ['config_getOneBase']),
+            visible: hasPermission(user, ['users_getOneBase']),
           },
           {
             name: 'Nạp tiền',
-            url: '',
+            url: '/account/donate',
             icon: '',
             visible: true,
           },
@@ -211,7 +192,7 @@ export class AdminComponent implements OnInit, AfterViewChecked {
       baseURL: environment.serverApi,
       timeout: 60000, // 1 phút
       paramsSerializer: function (params) {
-        return Qs.stringify(params, { arrayFormat: 'repeat' });
+        return Qs.stringify(params, {arrayFormat: 'repeat'});
       },
     };
     const userTokenData = jwt_decode(this.cookie.get('token'));
