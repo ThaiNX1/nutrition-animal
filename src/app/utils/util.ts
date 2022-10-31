@@ -59,7 +59,6 @@ export const hasPermission = (user: any, permissions?: string[]): boolean => {
   else {
     let hasPermission =
       permissions?.every((per) => user?.permissions?.includes(per)) || false;
-    console.log('hasPermission', hasPermission);
     return hasPermission;
   }
 };
