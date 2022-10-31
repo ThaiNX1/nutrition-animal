@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       .then((response) => {
         this.isLoading = false;
         this.cookie.set('token', String(response.token), { path: '/' });
+        this.cookie.set('tomeo_user', JSON.stringify(response.user));
         window.location.href = '/dashboard';
       })
       .catch((err) => {

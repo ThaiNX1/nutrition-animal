@@ -1749,8 +1749,12 @@ export class LoginResponse {
   /** Access token */
   'token': string;
 
+  /** User info */
+  'user': object;
+
   constructor(data: undefined | any = {}) {
     this['token'] = data['token'];
+    this['user'] = data['user'];
   }
 }
 

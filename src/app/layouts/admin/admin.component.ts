@@ -17,6 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 import * as Qs from 'qs';
 import { CommonService } from '../../common/common.service';
 import { environment } from 'src/environments/environment';
+import { hasPermission } from '../../utils/util';
 
 @Component({
   selector: 'app-admin',
@@ -42,18 +43,25 @@ export class AdminComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
+    const userCookie = this.cookie.get('tomeo_user');
+    const user = userCookie ? JSON.parse(userCookie) : {};
     this.sidebarItems = [
       {
         name: 'Tổng quan',
         url: '/dashboard',
         icon: 'home',
-        visible: true,
+        visible: hasPermission(user, []),
       },
       {
         name: 'Thành viên',
         url: '/user',
         icon: 'team',
-        visible: true,
+        visible: hasPermission(user, [
+          'users_getOneBase',
+          'users_getManyBase',
+          'users_createOneBase',
+          'users_updateOneBase',
+        ]),
       },
       // {
       //   name: 'Sản phẩm',
@@ -89,13 +97,20 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             name: 'Nguyên liệu',
             url: '/nutrition/ingredient',
             icon: '',
-            visible: true,
+            visible: hasPermission(user, [
+              'ingredient_getOneBase',
+              'ingredient_getManyBase',
+              'ingredient_createOneBase',
+            ]),
           },
           {
             name: 'Tính toán',
             url: '/nutrition/calculate',
             icon: '',
-            visible: true,
+            visible: hasPermission(user, [
+              'ingredientCalculate_IngredientCalculateController_nutrition-calculate',
+              'ingredient_getManyBase',
+            ]),
           },
           // {
           //   name: 'Thương hiệu',
@@ -116,21 +131,73 @@ export class AdminComponent implements OnInit, AfterViewChecked {
         url: '',
         icon: 'setting',
         children: [
-          {
-            name: 'Nhóm quyền',
-            url: '/setting/role',
-            icon: '',
-            visible: true,
-          },
-          {
-            name: 'Phân quyền',
-            url: '/setting/permission',
-            icon: '',
-            visible: true,
-          },
+          // {
+          //   name: 'Nhóm quyền',
+          //   url: '/setting/role',
+          //   icon: '',
+          //   visible: hasPermission(user, [
+          //     'ingredient_getOneBase',
+          //     'ingredient_getManyBase',
+          //     'ingredient_createOneBase',
+          //   ]),
+          // },
+          // {
+          //   name: 'Phân quyền',
+          //   url: '/setting/permission',
+          //   icon: '',
+          //   visible: hasPermission(user, [
+          //     'ingredient_getOneBase',
+          //     'ingredient_getManyBase',
+          //     'ingredient_createOneBase',
+          //   ]),
+          // },
           {
             name: 'Cấu hình hệ thống',
             url: '/setting/config',
+            icon: '',
+            visible: hasPermission(user, [
+              'config_getOneBase',
+              'config_getManyBase',
+              'config_createOneBase',
+              'config_updateOneBase',
+            ]),
+          },
+        ],
+      },
+      {
+        name: 'Tài khoản',
+        url: '',
+        icon: 'usergroup-add',
+        children: [
+          // {
+          //   name: 'Nhóm quyền',
+          //   url: '/setting/role',
+          //   icon: '',
+          //   visible: hasPermission(user, [
+          //     'ingredient_getOneBase',
+          //     'ingredient_getManyBase',
+          //     'ingredient_createOneBase',
+          //   ]),
+          // },
+          // {
+          //   name: 'Phân quyền',
+          //   url: '/setting/permission',
+          //   icon: '',
+          //   visible: hasPermission(user, [
+          //     'ingredient_getOneBase',
+          //     'ingredient_getManyBase',
+          //     'ingredient_createOneBase',
+          //   ]),
+          // },
+          {
+            name: 'Hồ sơ',
+            url: '/setting/config',
+            icon: '',
+            visible: hasPermission(user, ['config_getOneBase']),
+          },
+          {
+            name: 'Nạp tiền',
+            url: '',
             icon: '',
             visible: true,
           },
@@ -164,7 +231,7 @@ export class AdminComponent implements OnInit, AfterViewChecked {
   }
 
   logOut(): void {
-    this.cookie.delete('token');
+    this.cookie.deleteAll();
     this.router.navigate(['auth/login']);
   }
 
