@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './layouts/admin/admin.component';
+import { AuthGuard } from './guard/logged-in-guard.service';
 
 const routes: Routes = [
   {
@@ -10,12 +11,18 @@ const routes: Routes = [
   },
   {
     path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: AdminComponent,
     children: [
       {
         path: 'user',
         loadChildren: () =>
           import('./modules/user/user.module').then((m) => m.UserModule),
+        canActivate: [AuthGuard],
       },
       {
         path: 'dashboard',
@@ -23,6 +30,7 @@ const routes: Routes = [
           import('./modules/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
+        canActivate: [AuthGuard],
       },
       {
         path: 'setting',
@@ -30,6 +38,7 @@ const routes: Routes = [
           import('./modules/setting/setting.module').then(
             (m) => m.SettingModule
           ),
+        canActivate: [AuthGuard],
       },
       {
         path: 'product',
@@ -37,6 +46,7 @@ const routes: Routes = [
           import('./modules/product-management/product-management.module').then(
             (m) => m.ProductManagementModule
           ),
+        canActivate: [AuthGuard],
       },
       {
         path: 'nutrition',
@@ -44,6 +54,7 @@ const routes: Routes = [
           import(
             './modules/nutrition-management/nutrition-management.module'
           ).then((m) => m.NutritionManagementModule),
+        canActivate: [AuthGuard],
       },
     ],
   },

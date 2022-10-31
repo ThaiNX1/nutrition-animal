@@ -14,7 +14,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalculateComponent } from './calculate/calculate.component';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -41,6 +41,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     NzDatePickerModule,
     NzDividerModule,
     NzCheckboxModule,
+    ReactiveFormsModule,
   ],
 })
 export class NutritionManagementModule {}

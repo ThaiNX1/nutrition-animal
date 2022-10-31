@@ -1,8 +1,7 @@
 <div class='w-full grid grid-cols-3 gap-3'>
   <div class='col-span-3 md:col-span-1'>
+    <h3 class='uppercase font-bold text-xl sticky'>Danh sách nguyên liệu</h3>
     <div class='w-full border rounded flex flex-col'>
-      <h3 class='uppercase font-bold text-xl sticky'>Danh sách nguyên liệu</h3>
-      <nz-divider></nz-divider>
       <div class='w-full h-full overflow-auto flex flex-col'>
         <ng-container *ngFor='let ing of ingredients'>
           <label class='ml-2' [name]='"ing-"+ ing.id' nz-checkbox [(ngModel)]='ing.checked'
@@ -14,12 +13,143 @@
     </div>
   </div>
   <div class='col-span-3 md:col-span-2'>
-    <div class='w-full flex items-center border rounded'>
-      <nz-select ngModel="lucy">
-        <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-        <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-        <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-      </nz-select>
-    </div>
+    <form nz-form [formGroup]='infoForm' class='ant-advanced-search-form'>
+      <h3 class='uppercase font-bold text-xl sticky'>THông tin</h3>
+      <div class='w-full border rounded p-2'>
+        <div nz-row [nzGutter]='24'>
+          <div nz-col [nzSpan]='8'>
+            <nz-form-item>
+              <nz-form-label nzFor='animal' class='w-24 text-left'>Vật nuôi</nz-form-label>
+              <nz-form-control>
+                <nz-select id='animal' formControlName='animal'>
+                  <nz-option *ngFor='let animal of animals' [nzValue]='animal.value'
+                             [nzLabel]='animal.label'></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]='8'>
+            <nz-form-item>
+              <nz-form-label nzFor='formulaCode' class='w-24 text-left'>Mã CT</nz-form-label>
+              <nz-form-control>
+                <input nz-input id='formulaCode' formControlName='formulaCode' class='uppercase'
+                       placeholder='Nhập mã CT'>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]='8'>
+            <nz-form-item>
+              <nz-form-label nzFor='formulaName' class='w-24 text-left'>Tên CT</nz-form-label>
+              <nz-form-control>
+                <input nz-input id='formulaName' formControlName='formulaName' class='uppercase'
+                       placeholder='Nhập tên CT'>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+
+        <div nz-row [nzGutter]='24'>
+          <div nz-col [nzSpan]='8'>
+            <nz-form-item>
+              <nz-form-label nzFor='author' class='w-24 text-left'>Người lập CT</nz-form-label>
+              <nz-form-control>
+                <input nz-input id='author' formControlName='author' class='uppercase' placeholder='Nhập người lập CT'>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]='8'>
+            <nz-form-item>
+              <nz-form-label nzFor='company' class='w-24 text-left'>Đơn vị/Cty</nz-form-label>
+              <nz-form-control>
+                <input nz-input id='company' formControlName='company' placeholder='Nhập tên đơn vị, cty'>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]='8' class='flex justify-end'>
+            <button nz-button nzType='primary' class='mr-2'>Tính toán</button>
+            <button nz-button nzType='primary' class='flex items-center justify-center'>
+              <span nz-icon nzType='printer' nzTheme='outline'></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tính toán -->
+      <div class='w-full p-2 grid grid-cols-3'>
+        <!-- Danh sách NL -->
+        <div class='col-span-3 md:col-span-2 mb-3 border-r pr-2'>
+          <div nz-row [nzGutter]='24'>
+            <div nz-col [nzSpan]='12'>
+              <p class='font-bold'>Tên nguyên liệu</p>
+            </div>
+            <div nz-col [nzSpan]='4'>
+              <p class='font-bold'>Cân nặng</p>
+            </div>
+            <div nz-col [nzSpan]='4'>
+              <p class='font-bold'>Đơn giá</p>
+            </div>
+            <div nz-col [nzSpan]='4'>
+              <p class='font-bold'>Thành tiền</p>
+            </div>
+          </div>
+          <ng-container formArrayName='items'>
+            <ng-container *ngFor='let item of items.controls;index as i' [formGroupName]='i'>
+              <div nz-row [nzGutter]='24'>
+                <div nz-col [nzSpan]='12'>
+                  <p>{{item.value.ingName}}</p>
+                </div>
+                <div nz-col [nzSpan]='4'>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input nz-input formControlName='ingWeight'>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]='4'>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input nz-input formControlName='ingPrice'>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]='4'>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input formControlName='ingTotalPrice' nz-input [disabled]='true'>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <!-- Kết quả tính toán -->
+        <div class='col-span-3 md:col-span-1'>
+          <ng-container formArrayName='itemCalculates'>
+            <ng-container *ngFor='let item of itemCalculates.controls;index as i' [formGroupName]='i'>
+              <div nz-row [nzGutter]='24'>
+                <div nz-col [nzSpan]='16'>
+                  <p>{{item.value.name}}</p>
+                </div>
+                <div nz-col [nzSpan]='4'>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input formControlName='value'>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]='4'>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <p>{{item.value.unit}}</p>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

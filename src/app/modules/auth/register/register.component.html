@@ -72,8 +72,10 @@
         </nz-form-control>
       </nz-form-item>
     </form>
-    <div class='w-full flex justify-center'>
+    <div class='w-full flex items-center justify-center'>
       <button nz-button nzType='primary' (click)='submitForm()'>Đăng ký</button>
+      <p class='px-4'>Hoặc</p>
+      <router-link [routerLink]='["/login"]' class='text-sky-500 cursor-pointer font-bold'>Đăng nhập</router-link>
     </div>
   </div>
 </nz-spin>

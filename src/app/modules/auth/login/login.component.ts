@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 import * as yup from 'yup';
 import { FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private globalVariable: GlobalVariable,
     private common: CommonService,
     private cookie: CookieService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

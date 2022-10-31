@@ -2798,7 +2798,24 @@ export class CalculateRequestDto {
 }
 
 export class CalculateItem {
-  constructor(data: undefined | any = {}) {}
+  /** Mã */
+  'code': string;
+
+  /** Tên */
+  'name': string;
+
+  /** Giá trị */
+  'value': number;
+
+  /** Đơn vị tính */
+  'unit': string;
+
+  constructor(data: undefined | any = {}) {
+    this['code'] = data['code'];
+    this['name'] = data['name'];
+    this['value'] = data['value'];
+    this['unit'] = data['unit'];
+  }
 }
 
 export class CalculateResponseDto {

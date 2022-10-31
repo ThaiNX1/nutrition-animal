@@ -12,6 +12,7 @@ import { LayoutAdminModule } from './layouts/admin/layout-admin.module';
 import { CommonService } from './common/common.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthGuard } from './guard/logged-in-guard.service';
 
 registerLocaleData(en);
 
@@ -30,6 +31,7 @@ registerLocaleData(en);
     CommonService,
     NzNotificationService,
     CookieService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })
