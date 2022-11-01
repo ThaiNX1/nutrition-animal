@@ -12,8 +12,9 @@ import {
   IngredientService,
 } from '../../../services';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { DecimalPipe, formatNumber } from '@angular/common';
+import { DatePipe, DecimalPipe, formatNumber } from '@angular/common';
 import { debounceTime } from 'rxjs';
+import { printStyle } from '../../../common/constant';
 
 @Component({
   selector: 'app-calculate',
@@ -353,7 +354,99 @@ export class CalculateComponent implements OnInit {
     //   .catch((err) => {});
   }
 
-  onPrint(): void {}
+  onPrint(): void {
+    let tableContent = '';
+    this.items.value?.map((item: any) => {
+      tableContent +=
+        '<tr>' +
+        `<td>${item.ingCode}</td>` +
+        `<td>${item.ingName}</td>` +
+        `<td>${new DecimalPipe('en-us').transform(
+          item.ingWeight,
+          'en-us',
+          '1.0-2'
+        )}</td>` +
+        `<td>${new DecimalPipe('en-us').transform(
+          item.ingPrice,
+          'en-us',
+          '1.0-2'
+        )}</td>` +
+        `<td>${new DecimalPipe('en-us').transform(
+          item.ingTotalPrice,
+          'en-us',
+          '1.0-2'
+        )}</td>` +
+        '</tr>';
+    });
+    const printContents =
+      '' +
+      '<div class="w-full flex items-center justify-between">' +
+      '<div class="flex flex-1 items-center justify-center">' +
+      '<p>Người lập công thức</p>' +
+      '</div>' +
+      '<div class="flex flex-1 items-center justify-center">' +
+      `<p>Ngày in: ${new DatePipe('en-us').transform(
+        new Date(),
+        'dd/MM/yyyy'
+      )}</p>` +
+      '</div>' +
+      '</div>' +
+      '<div class="w-full flex items-center justify-between">' +
+      '<div class="flex flex-1 items-center justify-center">' +
+      `<p class="uppercase">${this.infoForm.value.author}</p>` +
+      '</div>' +
+      '<div class="flex flex-1 items-center justify-center">' +
+      `<p>UNIT: ${this.infoForm.value.company}</p>` +
+      '</div>' +
+      '</div>' +
+      '<div class="mt-10 border-b border-double flex items-end justify-between">' +
+      `<div class="flex flex-col"><p class="uppercase">Mã CT</p><p class="uppercase">${this.infoForm.value.formulaCode}</p></div>` +
+      `<div class="flex flex-col"><p class="uppercase">Tên Công thức</p><p class="uppercase">${this.infoForm.value.formulaName}</p></div>` +
+      '<p class="uppercase">Ngày lưu</p>' +
+      '<p class="uppercase">Bản lưu</p>' +
+      '<p class="uppercase">Giá lưu</p>' +
+      '</div>' +
+      '<div class="w-full mt-10">' +
+      '<table>' +
+      '<thead>' +
+      '<tr>' +
+      '<th class="font-bold">Mã số</th>' +
+      '<th class="font-bold">Nguyên liệu</th>' +
+      '<th class="font-bold">K.Lượng</th>' +
+      '<th class="font-bold">Giá NL</th>' +
+      '<th class="font-bold">Thành tiền</th>' +
+      '<th class="font-bold">Dinh dưỡng</th>' +
+      '</tr>' +
+      '</thead>' +
+      '<tbody>' +
+      '' +
+      '' +
+      '' +
+      '</tbody>' +
+      '</table>' +
+      '' +
+      '' +
+      '' +
+      '</div>' +
+      '';
+    const windowPrt = window.open(
+      '',
+      '',
+      'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0'
+    );
+    // @ts-ignore
+    windowPrt.document.write(
+      `<!DOCTYPE html><html><head>${printStyle}</head><body>${printContents}</body></html>`
+    );
+    // @ts-ignore
+    windowPrt.document.close();
+    // @ts-ignore
+    windowPrt.focus();
+    // @ts-ignore
+    windowPrt.print();
+    // @ts-ignore
+    windowPrt.close();
+  }
 
   onEdit(index: number): void {
     this.itemCalculates.at(index).patchValue({

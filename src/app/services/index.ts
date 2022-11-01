@@ -1820,7 +1820,32 @@ export class GetManyUserEntityResponseDto {
   }
 }
 
-export class UserEntity {
+export class GetManyRoleEntityResponseDto {
+  /**  */
+  'data': RoleEntity[];
+
+  /**  */
+  'count': number;
+
+  /**  */
+  'total': number;
+
+  /**  */
+  'page': number;
+
+  /**  */
+  'pageCount': number;
+
+  constructor(data: undefined | any = {}) {
+    this['data'] = data['data'];
+    this['count'] = data['count'];
+    this['total'] = data['total'];
+    this['page'] = data['page'];
+    this['pageCount'] = data['pageCount'];
+  }
+}
+
+export class RoleEntity {
   /** ID */
   'id'?: number;
 
@@ -1830,141 +1855,47 @@ export class UserEntity {
   /** Thời gian cập nhật */
   'updatedAt'?: Date;
 
-  /** Email */
-  'email'?: string;
+  /** Tên nhóm */
+  'name': string;
 
-  /** Mật khẩu */
-  'password': string;
+  /** Quyền */
+  'permissions': string[];
 
-  /** Lưu các mật khẩu cũ */
-  'passwordHistory'?: string[];
-
-  /** Tên */
-  'fullName': string;
-
-  /** Số điện thoại */
-  'tel': string;
-
-  /** Role ID */
-  'roleId'?: number;
-
-  /** Danh sách cấp dưới  */
-  'referralChildren'?: UserEntity[];
-
-  /** Id cấp trên */
-  'referralParentId'?: number;
-
-  /** Cấp trên */
-  'referralParent'?: CombinedReferralParentTypes;
-
-  /** Session sau khi gửi xác nhận SĐT với Firebase */
-  'sessionVerifyCode'?: string;
-
-  /** Số CMTND\/CCCD */
-  'nationalId'?: string;
-
-  /** Ngày cấp */
-  'nationalIssueDate'?: Date;
-
-  /** Nơi cấp */
-  'nationalIssueBy'?: string;
-
-  /** Địa chỉ */
-  'address'?: string;
-
-  /** Phường\/Xã */
-  'wardId'?: number;
-
-  /** Số tài khoản */
-  'bankNumber'?: string;
-
-  /** Chủ tài khoản */
-  'bankAccountName'?: string;
-
-  /** Chi nhánh ngân hàng */
-  'bankBranch'?: string;
-
-  /** Ngày sinh */
-  'dob'?: Date;
-
-  /** Giới tính */
-  'gender': EnumUserEntityGender;
-
-  /** Trạng thái */
-  'status': EnumUserEntityStatus;
-
-  /** Ảnh đại diện */
-  'avatar'?: string;
+  /** Loại quyền */
+  'type': EnumRoleEntityType;
 
   constructor(data: undefined | any = {}) {
     this['id'] = data['id'];
     this['createdAt'] = data['createdAt'];
     this['updatedAt'] = data['updatedAt'];
-    this['email'] = data['email'];
-    this['password'] = data['password'];
-    this['passwordHistory'] = data['passwordHistory'];
-    this['fullName'] = data['fullName'];
-    this['tel'] = data['tel'];
-    this['roleId'] = data['roleId'];
-    this['referralChildren'] = data['referralChildren'];
-    this['referralParentId'] = data['referralParentId'];
-    this['referralParent'] = data['referralParent'];
-    this['sessionVerifyCode'] = data['sessionVerifyCode'];
-    this['nationalId'] = data['nationalId'];
-    this['nationalIssueDate'] = data['nationalIssueDate'];
-    this['nationalIssueBy'] = data['nationalIssueBy'];
-    this['address'] = data['address'];
-    this['wardId'] = data['wardId'];
-    this['bankNumber'] = data['bankNumber'];
-    this['bankAccountName'] = data['bankAccountName'];
-    this['bankBranch'] = data['bankBranch'];
-    this['dob'] = data['dob'];
-    this['gender'] = data['gender'];
-    this['status'] = data['status'];
-    this['avatar'] = data['avatar'];
+    this['name'] = data['name'];
+    this['permissions'] = data['permissions'];
+    this['type'] = data['type'];
   }
 }
 
-export class VerifyOtpDto {
-  /** Firebase Token */
-  'idToken': string;
+export class GetManyDistrictEntityResponseDto {
+  /**  */
+  'data': DistrictEntity[];
 
-  /** Số điện thoại */
-  'tel': string;
+  /**  */
+  'count': number;
 
-  constructor(data: undefined | any = {}) {
-    this['idToken'] = data['idToken'];
-    this['tel'] = data['tel'];
-  }
-}
+  /**  */
+  'total': number;
 
-export class SendOtpForgotPasswordDto {
-  /** Số điện thoại reset mật khẩu */
-  'tel': string;
+  /**  */
+  'page': number;
 
-  /** Recaptcha Token */
-  'recaptchaToken': string;
+  /**  */
+  'pageCount': number;
 
   constructor(data: undefined | any = {}) {
-    this['tel'] = data['tel'];
-    this['recaptchaToken'] = data['recaptchaToken'];
-  }
-}
-
-export class ResetPasswordDto {
-  /** Mật khẩu */
-  'password': string;
-
-  /** Số điện thoại */
-  'tel': string;
-
-  /** Firebase Token */
-  'idToken': string;
-
-  constructor(data: undefined | any = {}) {
-    this['password'] = data['password'];
-    this['tel'] = data['tel'];
-    this['idToken'] = data['idToken'];
+    this['data'] = data['data'];
+    this['count'] = data['count'];
+    this['total'] = data['total'];
+    this['page'] = data['page'];
+    this['pageCount'] = data['pageCount'];
   }
 }
 
@@ -2030,31 +1961,6 @@ export class ProvinceEntity {
   }
 }
 
-export class GetManyDistrictEntityResponseDto {
-  /**  */
-  'data': DistrictEntity[];
-
-  /**  */
-  'count': number;
-
-  /**  */
-  'total': number;
-
-  /**  */
-  'page': number;
-
-  /**  */
-  'pageCount': number;
-
-  constructor(data: undefined | any = {}) {
-    this['data'] = data['data'];
-    this['count'] = data['count'];
-    this['total'] = data['total'];
-    this['page'] = data['page'];
-    this['pageCount'] = data['pageCount'];
-  }
-}
-
 export class DistrictEntity {
   /** ID */
   'id'?: number;
@@ -2096,32 +2002,7 @@ export class DistrictEntity {
   }
 }
 
-export class GetManyRoleEntityResponseDto {
-  /**  */
-  'data': RoleEntity[];
-
-  /**  */
-  'count': number;
-
-  /**  */
-  'total': number;
-
-  /**  */
-  'page': number;
-
-  /**  */
-  'pageCount': number;
-
-  constructor(data: undefined | any = {}) {
-    this['data'] = data['data'];
-    this['count'] = data['count'];
-    this['total'] = data['total'];
-    this['page'] = data['page'];
-    this['pageCount'] = data['pageCount'];
-  }
-}
-
-export class RoleEntity {
+export class WardEntity {
   /** ID */
   'id'?: number;
 
@@ -2131,22 +2012,256 @@ export class RoleEntity {
   /** Thời gian cập nhật */
   'updatedAt'?: Date;
 
-  /** Tên nhóm */
+  /** Tên Phường\/Xã */
   'name': string;
 
-  /** Quyền */
-  'permissions': string[];
+  /** Mã Quận\/huyện */
+  'code': string;
 
-  /** Loại quyền */
-  'type': EnumRoleEntityType;
+  /** Mã tên Quận\/huyện */
+  'codeName': string;
+
+  /** Loại */
+  'divisionType': string;
+
+  /** ID của Quận\/Huyện */
+  'districtId': number;
+
+  /** Thông tin Quận\/huyện */
+  'district'?: CombinedDistrictTypes;
 
   constructor(data: undefined | any = {}) {
     this['id'] = data['id'];
     this['createdAt'] = data['createdAt'];
     this['updatedAt'] = data['updatedAt'];
     this['name'] = data['name'];
-    this['permissions'] = data['permissions'];
-    this['type'] = data['type'];
+    this['code'] = data['code'];
+    this['codeName'] = data['codeName'];
+    this['divisionType'] = data['divisionType'];
+    this['districtId'] = data['districtId'];
+    this['district'] = data['district'];
+  }
+}
+
+export class WalletEntity {
+  /** ID */
+  'id'?: number;
+
+  /** Thời gian tạo */
+  'createdAt'?: Date;
+
+  /** Thời gian cập nhật */
+  'updatedAt'?: Date;
+
+  /** Id người dùng */
+  'userId': number;
+
+  /** Số tiền trong ví */
+  'amount'?: number;
+
+  constructor(data: undefined | any = {}) {
+    this['id'] = data['id'];
+    this['createdAt'] = data['createdAt'];
+    this['updatedAt'] = data['updatedAt'];
+    this['userId'] = data['userId'];
+    this['amount'] = data['amount'];
+  }
+}
+
+export class WalletHistoryEntity {
+  /** ID */
+  'id'?: number;
+
+  /** Thời gian tạo */
+  'createdAt'?: Date;
+
+  /** Thời gian cập nhật */
+  'updatedAt'?: Date;
+
+  /** Id người dùng */
+  'userId': number;
+
+  /** Id ví người dùng */
+  'walletId': number;
+
+  /** Số tiền giao dịch */
+  'amount': number;
+
+  /** Ghi chú */
+  'note'?: string;
+
+  constructor(data: undefined | any = {}) {
+    this['id'] = data['id'];
+    this['createdAt'] = data['createdAt'];
+    this['updatedAt'] = data['updatedAt'];
+    this['userId'] = data['userId'];
+    this['walletId'] = data['walletId'];
+    this['amount'] = data['amount'];
+    this['note'] = data['note'];
+  }
+}
+
+export class UserEntity {
+  /** ID */
+  'id'?: number;
+
+  /** Thời gian tạo */
+  'createdAt'?: Date;
+
+  /** Thời gian cập nhật */
+  'updatedAt'?: Date;
+
+  /** Email */
+  'email'?: string;
+
+  /** Mật khẩu */
+  'password': string;
+
+  /** Lưu các mật khẩu cũ */
+  'passwordHistory'?: string[];
+
+  /** Tên */
+  'fullName': string;
+
+  /** Số điện thoại */
+  'tel': string;
+
+  /** Role ID */
+  'roleId'?: number;
+
+  /** Role */
+  'role'?: CombinedRoleTypes;
+
+  /** Danh sách cấp dưới  */
+  'referralChildren'?: UserEntity[];
+
+  /** Id cấp trên */
+  'referralParentId'?: number;
+
+  /** Cấp trên */
+  'referralParent'?: CombinedReferralParentTypes;
+
+  /** Session sau khi gửi xác nhận SĐT với Firebase */
+  'sessionVerifyCode'?: string;
+
+  /** Số CMTND\/CCCD */
+  'nationalId'?: string;
+
+  /** Ngày cấp */
+  'nationalIssueDate'?: Date;
+
+  /** Nơi cấp */
+  'nationalIssueBy'?: string;
+
+  /** Địa chỉ */
+  'address'?: string;
+
+  /** Phường\/Xã */
+  'wardId'?: number;
+
+  /** Ward */
+  'ward'?: CombinedWardTypes;
+
+  /** Số tài khoản */
+  'bankNumber'?: string;
+
+  /** Chủ tài khoản */
+  'bankAccountName'?: string;
+
+  /** Chi nhánh ngân hàng */
+  'bankBranch'?: string;
+
+  /** Ngày sinh */
+  'dob'?: Date;
+
+  /** Giới tính */
+  'gender': EnumUserEntityGender;
+
+  /** Trạng thái */
+  'status': EnumUserEntityStatus;
+
+  /** Ảnh đại diện */
+  'avatar'?: string;
+
+  /** Wallet */
+  'wallets'?: WalletEntity[];
+
+  /** Wallet History */
+  'walletHistories'?: WalletHistoryEntity[];
+
+  constructor(data: undefined | any = {}) {
+    this['id'] = data['id'];
+    this['createdAt'] = data['createdAt'];
+    this['updatedAt'] = data['updatedAt'];
+    this['email'] = data['email'];
+    this['password'] = data['password'];
+    this['passwordHistory'] = data['passwordHistory'];
+    this['fullName'] = data['fullName'];
+    this['tel'] = data['tel'];
+    this['roleId'] = data['roleId'];
+    this['role'] = data['role'];
+    this['referralChildren'] = data['referralChildren'];
+    this['referralParentId'] = data['referralParentId'];
+    this['referralParent'] = data['referralParent'];
+    this['sessionVerifyCode'] = data['sessionVerifyCode'];
+    this['nationalId'] = data['nationalId'];
+    this['nationalIssueDate'] = data['nationalIssueDate'];
+    this['nationalIssueBy'] = data['nationalIssueBy'];
+    this['address'] = data['address'];
+    this['wardId'] = data['wardId'];
+    this['ward'] = data['ward'];
+    this['bankNumber'] = data['bankNumber'];
+    this['bankAccountName'] = data['bankAccountName'];
+    this['bankBranch'] = data['bankBranch'];
+    this['dob'] = data['dob'];
+    this['gender'] = data['gender'];
+    this['status'] = data['status'];
+    this['avatar'] = data['avatar'];
+    this['wallets'] = data['wallets'];
+    this['walletHistories'] = data['walletHistories'];
+  }
+}
+
+export class VerifyOtpDto {
+  /** Firebase Token */
+  'idToken': string;
+
+  /** Số điện thoại */
+  'tel': string;
+
+  constructor(data: undefined | any = {}) {
+    this['idToken'] = data['idToken'];
+    this['tel'] = data['tel'];
+  }
+}
+
+export class SendOtpForgotPasswordDto {
+  /** Số điện thoại reset mật khẩu */
+  'tel': string;
+
+  /** Recaptcha Token */
+  'recaptchaToken': string;
+
+  constructor(data: undefined | any = {}) {
+    this['tel'] = data['tel'];
+    this['recaptchaToken'] = data['recaptchaToken'];
+  }
+}
+
+export class ResetPasswordDto {
+  /** Mật khẩu */
+  'password': string;
+
+  /** Số điện thoại */
+  'tel': string;
+
+  /** Firebase Token */
+  'idToken': string;
+
+  constructor(data: undefined | any = {}) {
+    this['password'] = data['password'];
+    this['tel'] = data['tel'];
+    this['idToken'] = data['idToken'];
   }
 }
 
@@ -2591,47 +2706,6 @@ export class GetManyOrderEntityResponseDto {
   }
 }
 
-export class WardEntity {
-  /** ID */
-  'id'?: number;
-
-  /** Thời gian tạo */
-  'createdAt'?: Date;
-
-  /** Thời gian cập nhật */
-  'updatedAt'?: Date;
-
-  /** Tên Phường\/Xã */
-  'name': string;
-
-  /** Mã Quận\/huyện */
-  'code': string;
-
-  /** Mã tên Quận\/huyện */
-  'codeName': string;
-
-  /** Loại */
-  'divisionType': string;
-
-  /** ID của Quận\/Huyện */
-  'districtId': number;
-
-  /** Thông tin Quận\/huyện */
-  'district'?: CombinedDistrictTypes;
-
-  constructor(data: undefined | any = {}) {
-    this['id'] = data['id'];
-    this['createdAt'] = data['createdAt'];
-    this['updatedAt'] = data['updatedAt'];
-    this['name'] = data['name'];
-    this['code'] = data['code'];
-    this['codeName'] = data['codeName'];
-    this['divisionType'] = data['divisionType'];
-    this['districtId'] = data['districtId'];
-    this['district'] = data['district'];
-  }
-}
-
 export class OrderEntity {
   /** ID */
   'id'?: number;
@@ -2927,7 +3001,19 @@ export enum EnumRegisterDtoGender {
   'female' = 'female',
   'other' = 'other'
 }
+export enum EnumRoleEntityType {
+  'admin' = 'admin',
+  'customer' = 'customer',
+  'member' = 'member',
+  'leader' = 'leader',
+  'partner' = 'partner',
+  'other' = 'other'
+}
+export type CombinedProvinceTypes = ProvinceEntity;
+export type CombinedDistrictTypes = DistrictEntity;
+export type CombinedRoleTypes = RoleEntity;
 export type CombinedReferralParentTypes = UserEntity;
+export type CombinedWardTypes = WardEntity;
 export enum EnumUserEntityGender {
   'male' = 'male',
   'female' = 'female',
@@ -2938,15 +3024,6 @@ export enum EnumUserEntityStatus {
   'inactive' = 'inactive',
   'banned' = 'banned',
   'deleted' = 'deleted'
-}
-export type CombinedProvinceTypes = ProvinceEntity;
-export enum EnumRoleEntityType {
-  'admin' = 'admin',
-  'customer' = 'customer',
-  'member' = 'member',
-  'leader' = 'leader',
-  'partner' = 'partner',
-  'other' = 'other'
 }
 export enum EnumConfigEntityKey {
   'top-slide-banner' = 'top-slide-banner',
@@ -2963,7 +3040,6 @@ export enum EnumProductEntityStatus {
 }
 export type CombinedProductCategoryTypes = ProductCategoryEntity;
 export type CombinedProductBrandTypes = ProductBrandEntity;
-export type CombinedDistrictTypes = DistrictEntity;
 export enum EnumOrderEntityStatus {
   'created' = 'created',
   'confirmed' = 'confirmed',
@@ -2977,7 +3053,6 @@ export enum EnumOrderEntityStatus {
   'failed' = 'failed',
   'return' = 'return'
 }
-export type CombinedWardTypes = WardEntity;
 export enum EnumOrderEntityPaymentType {
   'cod' = 'cod',
   'bacs' = 'bacs'
