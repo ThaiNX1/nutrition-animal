@@ -356,6 +356,14 @@ export class CalculateComponent implements OnInit {
 
   onPrint(): void {
     let tableContent = '';
+    const totalWeight =
+      this.items.value?.reduce((total: any, curr: any) => {
+        return total + Number(curr?.ingWeight || 0);
+      }, 0) || 0;
+    const totalPrice =
+      this.items.value?.reduce((total: any, curr: any) => {
+        return total + Number(curr?.ingTotalPrice || 0);
+      }, 0) || 0;
     this.items.value?.map((item: any) => {
       tableContent +=
         '<tr>' +
@@ -371,7 +379,7 @@ export class CalculateComponent implements OnInit {
           'en-us',
           '1.0-2'
         )}</td>` +
-        `<td>${new DecimalPipe('en-us').transform(
+        `<td class="border-r">${new DecimalPipe('en-us').transform(
           item.ingTotalPrice,
           'en-us',
           '1.0-2'
@@ -419,9 +427,13 @@ export class CalculateComponent implements OnInit {
       '</tr>' +
       '</thead>' +
       '<tbody>' +
-      '' +
-      '' +
-      '' +
+      '<tr>' +
+      `<td colspan="2">TOTAL</td>` +
+      `<td>${totalWeight}</td>` +
+      '<td></td>' +
+      `<td>${totalPrice}</td>` +
+      '</tr>' +
+      `${tableContent}` +
       '</tbody>' +
       '</table>' +
       '' +

@@ -82,6 +82,12 @@ border:1px solid #333333
 .border-b{
 border-bottom:1px solid #333333
 }
+.border-r{
+border-right:1px solid #333333
+}
+.border-l{
+border-left:1px solid #333333
+}
 .border-double{
 border-style: double;
 }
