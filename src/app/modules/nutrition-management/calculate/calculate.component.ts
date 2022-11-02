@@ -50,7 +50,6 @@ export class CalculateComponent implements OnInit {
   totalPercentage = 0;
   totalPrice = 0;
   totalWeight = 0;
-  isPrint = true;
 
   constructor(
     private globalVariant: GlobalVariable,
@@ -202,7 +201,6 @@ export class CalculateComponent implements OnInit {
           );
         });
         this.getTotalPercentage();
-        this.isPrint = true;
       })
       .catch((err) => {
         this.globalVariant.setIsLoading(false);
