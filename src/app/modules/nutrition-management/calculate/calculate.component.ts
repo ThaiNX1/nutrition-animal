@@ -164,6 +164,7 @@ export class CalculateComponent implements OnInit {
   }
 
   onCalculate(): void {
+    this.itemCalculates.clear();
     const ingredients =
       this.items.value.reduce((arr: IngredientRequest[], curr: any) => {
         arr.push({
