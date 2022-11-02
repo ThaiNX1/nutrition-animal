@@ -66,8 +66,8 @@
             </nz-form-item>
           </div>
           <div nz-col [nzSpan]='8' class='flex justify-end'>
-            <button nz-button nzType='primary' class='mr-2' (click)='onCalculate()'>Tính toán</button>
-            <button nz-button nzType='primary' class='flex items-center justify-center' (click)='onPrint()'>
+            <button type='button' nz-button nzType='primary' class='mr-2 bg-sky-500' (click)='onCalculate()'>Tính toán</button>
+            <button type='button' nz-button nzType='primary' class='flex items-center justify-center bg-sky-500' (click)='onPrint()'>
               <span nz-icon nzType='printer' nzTheme='outline'></span>
             </button>
           </div>
@@ -79,7 +79,7 @@
         <!-- Danh sách NL -->
         <div class='col-span-3 md:col-span-2 mb-3 border-r pr-2'>
           <div nz-row [nzGutter]='24' class='mb-4'>
-            <div nz-col [nzSpan]='8'>
+            <div nz-col [nzSpan]='7'>
               <p class='font-bold'>Tên nguyên liệu</p>
             </div>
             <div nz-col [nzSpan]='4'>
@@ -119,20 +119,21 @@
                 <div nz-col [nzSpan]='7'>
                   <nz-form-item class='mb-0'>
                     <nz-form-control>
-                      <input formControlName='ingTotalPrice' nz-input [disabled]='true'>
+                      <p>{{item.value.ingTotalPrice | number}}</p>
+                      <!--                      <input formControlName='ingTotalPrice' nz-input [disabled]='true'>-->
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div nz-col [nzSpan]='2'>
                   <a nz-button nzType='text' class='flex items-center justify-center' (click)='onRemoveIng(i)'>
-                    <span nz-icon nzType="delete" nzTheme="outline" class='text-red-500 font-bold'></span>
+                    <span nz-icon nzType='delete' nzTheme='outline' class='text-red-500 font-bold'></span>
                   </a>
                 </div>
               </div>
             </ng-container>
           </ng-container>
           <div class='w-full flex justify-end py-1'>
-            <button nz-button nzShape='circle' nzType='primary' class='flex items-center justify-center'
+            <button type='button' nz-button nzShape='circle' nzType='primary' class='flex items-center justify-center bg-sky-500'
                     (click)='onAddNewIng()'>
               <span nz-icon nzType='plus' nzTheme='outline'></span>
             </button>

@@ -113,6 +113,7 @@ export class CalculateComponent implements OnInit {
       const ingRemoveIndex = this.items.value.indexOf(ingRemove);
       this.items.removeAt(ingRemoveIndex);
     }
+    this.onValueChange();
   }
 
   getTotalPercentage(): void {
@@ -126,13 +127,11 @@ export class CalculateComponent implements OnInit {
   getTotalPrice(): void {
     this.totalPrice =
       this.items.value?.reduce((total: any, curr: any) => {
-        if (curr.unit === '%') total += Number(curr.ingTotalPrice || 0);
-        return total;
+        return total + Number(curr.ingTotalPrice || 0);
       }, 0) || 0;
     this.totalWeight =
       this.items.value?.reduce((total: any, curr: any) => {
-        if (curr.unit === '%') total += Number(curr.ingWeight || 0);
-        return total;
+        return total + Number(curr.ingWeight || 0);
       }, 0) || 0;
   }
 
@@ -140,12 +139,13 @@ export class CalculateComponent implements OnInit {
     this.items.controls?.map((control, index) => {
       control
         ?.get('ingWeight')
-        ?.valueChanges.pipe(debounceTime(400))
+        ?.valueChanges.pipe(debounceTime(300))
         .subscribe((value) => {
           control.patchValue({
             ingTotalPrice:
               Number(value || 0) * Number(control.value.ingPrice || 0),
           });
+          this.getTotalPrice();
         });
     });
     this.items.controls?.map((control, index) => {
@@ -365,26 +365,24 @@ export class CalculateComponent implements OnInit {
         return total + Number(curr?.ingTotalPrice || 0);
       }, 0) || 0;
     this.items.value?.map((item: any) => {
-      tableContent +=
-        '<tr>' +
-        `<td>${item.ingCode}</td>` +
-        `<td>${item.ingName}</td>` +
-        `<td>${new DecimalPipe('en-us').transform(
-          item.ingWeight,
-          'en-us',
-          '1.0-2'
-        )}</td>` +
-        `<td>${new DecimalPipe('en-us').transform(
-          item.ingPrice,
-          'en-us',
-          '1.0-2'
-        )}</td>` +
-        `<td class="border-r">${new DecimalPipe('en-us').transform(
-          item.ingTotalPrice,
-          'en-us',
-          '1.0-2'
-        )}</td>` +
-        '</tr>';
+      if (item.ingWeight)
+        tableContent +=
+          '<tr>' +
+          `<td class="px-2 py-1">${item.ingCode}</td>` +
+          `<td class="px-1 py-1">${item.ingName}</td>` +
+          `<td class="px-2 py-1">${new DecimalPipe('en-us').transform(
+            item.ingWeight,
+            '1.0-2'
+          )}</td>` +
+          `<td class="px-2 py-1">${new DecimalPipe('en-us').transform(
+            item.ingPrice,
+            '1.0-2'
+          )}</td>` +
+          `<td class="border-r px-2 py-1">${new DecimalPipe('en-us').transform(
+            item.ingTotalPrice,
+            '1.0-2'
+          )}</td>` +
+          '</tr>';
     });
     const printContents =
       '' +
@@ -401,37 +399,46 @@ export class CalculateComponent implements OnInit {
       '</div>' +
       '<div class="w-full flex items-center justify-between">' +
       '<div class="flex flex-1 items-center justify-center">' +
-      `<p class="uppercase">${this.infoForm.value.author}</p>` +
+      `<p class="uppercase">${this.infoForm.value.author || ''}</p>` +
       '</div>' +
       '<div class="flex flex-1 items-center justify-center">' +
-      `<p>UNIT: ${this.infoForm.value.company}</p>` +
+      `<p>UNIT: ${this.infoForm.value.company || ''}</p>` +
       '</div>' +
       '</div>' +
-      '<div class="mt-10 border-b border-double flex items-end justify-between">' +
-      `<div class="flex flex-col"><p class="uppercase">Mã CT</p><p class="uppercase">${this.infoForm.value.formulaCode}</p></div>` +
-      `<div class="flex flex-col"><p class="uppercase">Tên Công thức</p><p class="uppercase">${this.infoForm.value.formulaName}</p></div>` +
-      '<p class="uppercase">Ngày lưu</p>' +
-      '<p class="uppercase">Bản lưu</p>' +
-      '<p class="uppercase">Giá lưu</p>' +
+      '<div class="mt-10 flex items-start justify-between">' +
+      `<div class="flex flex-1 flex-col"><p class="uppercase border-b-double">Mã CT</p><p class="uppercase">${
+        this.infoForm.value.formulaCode || ''
+      }</p></div>` +
+      `<div class="flex flex-1 flex-col"><p class="uppercase border-b-double">Tên Công thức</p><p class="uppercase">${
+        this.infoForm.value.formulaName || ''
+      }</p></div>` +
+      '<p class="flex-1 uppercase border-b-double">Ngày lưu</p>' +
+      '<p class="flex-1 uppercase border-b-double">Bản lưu</p>' +
+      '<p class="flex-1 uppercase border-b-double">Giá lưu</p>' +
       '</div>' +
       '<div class="w-full mt-10">' +
-      '<table>' +
+      '<table class="w-full border-spacing-0">' +
       '<thead>' +
       '<tr>' +
-      '<th class="font-bold">Mã số</th>' +
-      '<th class="font-bold">Nguyên liệu</th>' +
-      '<th class="font-bold">K.Lượng</th>' +
-      '<th class="font-bold">Giá NL</th>' +
-      '<th class="font-bold">Thành tiền</th>' +
-      '<th class="font-bold">Dinh dưỡng</th>' +
+      '<th class="font-bold text-left border-b">Mã số</th>' +
+      '<th class="font-bold px-2 text-left border-b">Nguyên liệu</th>' +
+      '<th class="font-bold px-2 text-left border-b">K.Lượng</th>' +
+      '<th class="font-bold px-2 text-left border-b">Giá NL</th>' +
+      '<th class="font-bold px-2 text-left border-b">Thành tiền</th>' +
+      '<th class="font-bold px-2 text-left border-b" colspan="2">Dinh dưỡng</th>' +
       '</tr>' +
       '</thead>' +
       '<tbody>' +
       '<tr>' +
-      `<td colspan="2">TOTAL</td>` +
-      `<td>${totalWeight}</td>` +
-      '<td></td>' +
-      `<td>${totalPrice}</td>` +
+      `<td colspan="2" class="py-2 border-b-double">TOTAL</td>` +
+      `<td class="px-2 py-2 font-bold border-b-double">${new DecimalPipe(
+        'en-us'
+      ).transform(totalWeight, '1.0-2')}</td>` +
+      '<td class="py-2 border-b-double"></td>' +
+      `<td class="px-2 py-2 font-bold border-b-double">${new DecimalPipe(
+        'en-us'
+      ).transform(totalPrice, '1.0-2')}</td>` +
+      `<td colspan="2" rowspan="24" class="pl-2">Test thui nhes</td>` +
       '</tr>' +
       `${tableContent}` +
       '</tbody>' +
@@ -455,9 +462,9 @@ export class CalculateComponent implements OnInit {
     // @ts-ignore
     windowPrt.focus();
     // @ts-ignore
-    windowPrt.print();
+    // windowPrt.print();
     // @ts-ignore
-    windowPrt.close();
+    // windowPrt.close();
   }
 
   onEdit(index: number): void {
