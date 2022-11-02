@@ -67,7 +67,7 @@
           </div>
           <div nz-col [nzSpan]='8' class='flex justify-end'>
             <button type='button' nz-button nzType='primary' class='mr-2 bg-sky-500' (click)='onCalculate()'>Tính toán</button>
-            <button type='button' nz-button nzType='primary' class='flex items-center justify-center bg-sky-500' (click)='onPrint()'>
+            <button [disabled]='isPrint' type='button' nz-button nzType='primary' class='flex items-center justify-center bg-sky-500' (click)='onPrint()'>
               <span nz-icon nzType='printer' nzTheme='outline'></span>
             </button>
           </div>
