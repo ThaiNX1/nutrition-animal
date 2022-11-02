@@ -65,6 +65,9 @@ margin-bottom: 0;
 .mt-0{
 margin-top: 0;
 }
+.mt-5{
+margin-top: 1.25rem
+}
 .mt-10{
 margin-top: 2.5rem;
 }
@@ -103,6 +106,10 @@ border-style: double;
 .font-bold{
 font-weight: bold;
 }
+.text-xs{
+font-size: 0.75rem; /* 12px */
+line-height: 1rem; /* 16px */
+}
 .text-base{
 font-size: 1rem;
 line-height: 1.5rem;
@@ -128,6 +135,12 @@ text-align: left;
 }
 .border-spacing-0{
 border-spacing: 0px;
+}
+.h-20{
+height: 20px;
+}
+.h-30{
+height: 30px;
 }
 </style>
 `;

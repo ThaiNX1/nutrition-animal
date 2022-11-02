@@ -210,6 +210,7 @@ export class CalculateComponent implements OnInit {
 
   onPrint(): void {
     let tableContent = '';
+    let nutritionContent = '';
     const totalWeight =
       this.items.value?.reduce((total: any, curr: any) => {
         return total + Number(curr?.ingWeight || 0);
@@ -221,7 +222,7 @@ export class CalculateComponent implements OnInit {
     this.items.value?.map((item: any) => {
       if (item.ingWeight)
         tableContent +=
-          '<tr>' +
+          '<tr class="h-20">' +
           `<td class="px-2 py-1">${item.ingCode}</td>` +
           `<td class="px-1 py-1">${item.ingName}</td>` +
           `<td class="px-2 py-1">${new DecimalPipe('en-us').transform(
@@ -237,6 +238,20 @@ export class CalculateComponent implements OnInit {
             '1.0-2'
           )}</td>` +
           '</tr>';
+    });
+    if (this.items.value.length < 24)
+      for (let i = this.items.value.length; i < 24; i++) {
+        tableContent +=
+          '<tr>' +
+          '<td></td>' +
+          '<td></td>' +
+          '<td></td>' +
+          '<td></td>' +
+          '<td class="border-r"></td>' +
+          '</tr>';
+      }
+    this.itemCalculates.value?.map((item: any) => {
+      nutritionContent += `<p class='mb-0 text-xs'>${item.name}  ${item.value}  ${item.unit}</p>`;
     });
     const printContents =
       '' +
@@ -259,7 +274,7 @@ export class CalculateComponent implements OnInit {
       `<p>UNIT: ${this.infoForm.value.company || ''}</p>` +
       '</div>' +
       '</div>' +
-      '<div class="mt-10 flex items-start justify-between">' +
+      '<div class="mt-5 flex items-start justify-between">' +
       `<div class="flex flex-1 flex-col"><p class="uppercase border-b-double">Mã CT</p><p class="uppercase">${
         this.infoForm.value.formulaCode || ''
       }</p></div>` +
@@ -283,8 +298,9 @@ export class CalculateComponent implements OnInit {
       '</tr>' +
       '</thead>' +
       '<tbody>' +
-      '<tr>' +
-      `<td colspan="2" class="py-2 border-b-double">TOTAL</td>` +
+      '<tr class="h-30">' +
+      `<td class="py-2 border-b-double">TOTAL</td>` +
+      `<td class="py-2 border-b-double"></td>` +
       `<td class="px-2 py-2 font-bold border-b-double">${new DecimalPipe(
         'en-us'
       ).transform(totalWeight, '1.0-2')}</td>` +
@@ -292,14 +308,16 @@ export class CalculateComponent implements OnInit {
       `<td class="px-2 py-2 font-bold border-b-double">${new DecimalPipe(
         'en-us'
       ).transform(totalPrice, '1.0-2')}</td>` +
-      `<td colspan="2" rowspan="24" class="pl-2">Test thui nhes</td>` +
+      '<td class="border-b-double"></td>' +
+      '<td rowspan="24">' +
+      '<div class="w-full pl-2">' +
+      `${nutritionContent}` +
+      '</div>' +
+      '</td>' +
       '</tr>' +
       `${tableContent}` +
       '</tbody>' +
       '</table>' +
-      '' +
-      '' +
-      '' +
       '</div>' +
       '';
     const windowPrt = window.open(
