@@ -29,6 +29,7 @@ export class AdminComponent implements OnInit, AfterViewChecked {
   isLoading = false;
   header: any;
   sidebarItems: INavData[] = [];
+  user: any = {};
 
   constructor(
     private globalVariant: GlobalVariable,
@@ -44,19 +45,19 @@ export class AdminComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     const userCookie = this.cookie.get('tomeo_user');
-    const user = userCookie ? JSON.parse(userCookie) : {};
+    this.user = userCookie ? JSON.parse(userCookie) : {};
     this.sidebarItems = [
       {
         name: 'Tổng quan',
         url: '/dashboard',
         icon: 'home',
-        visible: hasPermission(user, []),
+        visible: hasPermission(this.user, []),
       },
       {
         name: 'Thành viên',
         url: '/user',
         icon: 'team',
-        visible: hasPermission(user, [
+        visible: hasPermission(this.user, [
           'users_getOneBase',
           'users_getManyBase',
           'users_createOneBase',
@@ -97,7 +98,7 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             name: 'Nguyên liệu',
             url: '/nutrition/ingredient',
             icon: '',
-            visible: hasPermission(user, [
+            visible: hasPermission(this.user, [
               'ingredient_getOneBase',
               'ingredient_getManyBase',
               'ingredient_createOneBase',
@@ -107,7 +108,7 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             name: 'Tính toán',
             url: '/nutrition/calculate',
             icon: '',
-            visible: hasPermission(user, [
+            visible: hasPermission(this.user, [
               'ingredientCalculate_IngredientCalculateController_nutrition-calculate',
               'ingredient_getManyBase',
             ]),
@@ -130,6 +131,12 @@ export class AdminComponent implements OnInit, AfterViewChecked {
         name: 'Cài đặt',
         url: '',
         icon: 'setting',
+        visible: hasPermission(this.user, [
+          'config_getOneBase',
+          'config_getManyBase',
+          'config_createOneBase',
+          'config_updateOneBase',
+        ]),
         children: [
           // {
           //   name: 'Nhóm quyền',
@@ -155,7 +162,7 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             name: 'Cấu hình hệ thống',
             url: '/setting/config',
             icon: '',
-            visible: hasPermission(user, [
+            visible: hasPermission(this.user, [
               'config_getOneBase',
               'config_getManyBase',
               'config_createOneBase',
@@ -173,13 +180,13 @@ export class AdminComponent implements OnInit, AfterViewChecked {
             name: 'Hồ sơ',
             url: '/account/info',
             icon: '',
-            visible: hasPermission(user, ['users_getOneBase']),
+            visible: hasPermission(this.user, ['users_getOneBase']),
           },
           {
             name: 'Nạp tiền',
             url: '/account/donate',
             icon: '',
-            visible: hasPermission(user, ['users_getOneBase']),
+            visible: hasPermission(this.user, ['users_getOneBase']),
           },
         ],
       },
