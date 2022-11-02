@@ -8,7 +8,14 @@ import {
 import { GlobalVariable } from '../../../common/global-variable';
 import { CommonService } from '../../../common/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserEntity, UsersService } from '../../../services';
+import {
+  EnumUserEntityGender,
+  EnumUserEntityStatus,
+  RoleEntity,
+  RolesService,
+  UserEntity,
+  UsersService,
+} from '../../../services';
 
 @Component({
   selector: 'app-id-user',
@@ -18,8 +25,41 @@ import { UserEntity, UsersService } from '../../../services';
 export class IdUserComponent implements OnInit, AfterViewInit {
   isView: boolean = false;
   query: any;
-  user?: UserEntity;
+  user: UserEntity = {};
   @ViewChild('btnSave') btnSave?: TemplateRef<any>;
+  genders = [
+    {
+      value: EnumUserEntityGender.male,
+      label: 'Nam',
+    },
+    {
+      value: EnumUserEntityGender.female,
+      label: 'Nữ',
+    },
+    {
+      value: EnumUserEntityGender.other,
+      label: 'Khác',
+    },
+  ];
+  statuses = [
+    {
+      value: EnumUserEntityStatus.active,
+      label: 'Hoạt động',
+    },
+    {
+      value: EnumUserEntityStatus.inactive,
+      label: 'Không hoạt động',
+    },
+    {
+      value: EnumUserEntityStatus.banned,
+      label: 'Khóa',
+    },
+    {
+      value: EnumUserEntityStatus.deleted,
+      label: 'Khóa vĩnh viễn',
+    },
+  ];
+  roles: RoleEntity[] = [];
 
   constructor(
     private globalVariant: GlobalVariable,
@@ -47,22 +87,25 @@ export class IdUserComponent implements OnInit, AfterViewInit {
     } else {
       if (!isNaN(Number(this.query))) {
         this.isView = false;
-        this.user = await this.getUser(Number(this.query));
+        await this.getUser(Number(this.query));
       }
       if (isNaN(Number(this.query))) {
         this.isView = true;
-        this.user = await this.getUser(Number(this.query.split('-')?.[1]));
+        await this.getUser(Number(this.query.split('-')?.[1]));
       }
     }
   }
 
-  async getUser(id: number): Promise<UserEntity | undefined> {
+  async getUser(id: number): Promise<any> {
     this.globalVariant.setIsLoading(true);
     const result = await Promise.all([
       UsersService.getOneBase({ id: id, join: ['role'] }),
+      RolesService.getManyBase({ limit: 100 }),
     ])
-      .then(([response]) => {
+      .then(([response, roleResponse]) => {
         this.globalVariant.setIsLoading(false);
+        this.user = response;
+        this.roles = roleResponse.data || [];
         return response;
       })
       .catch((err) => {
@@ -74,6 +117,19 @@ export class IdUserComponent implements OnInit, AfterViewInit {
   }
 
   onSave(): void {
-    console.log('btnSave');
+    this.globalVariant.setIsLoading(true);
+    if (this.user.id)
+      UsersService.updateOneBase({
+        id: this.user.id,
+        body: this.user,
+      })
+        .then((res) => {
+          this.globalVariant.setIsLoading(false);
+          this.common.alertSuccess('Cập nhật thành công');
+        })
+        .catch((err) => {
+          this.globalVariant.setIsLoading(false);
+          this.common.alertError(err.message);
+        });
   }
 }

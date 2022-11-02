@@ -16,9 +16,10 @@ export class UserComponent implements OnInit {
     page: 1,
     sort: ['createdAt,ASC', 'fullName,ASC'],
     filter: [],
-    join: ['role', 'wallet'],
+    join: ['role', 'wallets'],
   };
   data: any;
+  visibleWalletPopover = false;
 
   constructor(
     private globalVariant: GlobalVariable,
@@ -44,6 +45,14 @@ export class UserComponent implements OnInit {
       .then((response: DataResult<UserEntity>) => {
         this.globalVariant.setIsLoading(false);
         this.data = response;
+        this.data.data =
+          this.data.data?.reduce((arr: any, curr: UserEntity) => {
+            arr.push({
+              ...curr,
+              amountUpdate: 0,
+            });
+            return arr;
+          }, []) || [];
       })
       .catch((error) => {
         this.globalVariant.setIsLoading(false);
@@ -53,5 +62,22 @@ export class UserComponent implements OnInit {
 
   onEdit(item: UserEntity): void {
     this.router.navigate([`user/${item.id}`]);
+  }
+
+  onUpdateWallet(item: any): void {
+    this.globalVariant.setIsLoading(true);
+    UsersService.userControllerUpdateWallet({
+      id: item.id,
+      body: { amount: Number(item.amountUpdate || 0) },
+    })
+      .then((res) => {
+        this.globalVariant.setIsLoading(false);
+        this.common.alertSuccess('Cập nhật thành công!');
+        this.getData();
+      })
+      .catch((error) => {
+        this.globalVariant.setIsLoading(false);
+        this.common.alertError(error.message);
+      });
   }
 }

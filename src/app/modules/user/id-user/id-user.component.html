@@ -6,7 +6,7 @@
           Tên thành viên
         </nz-form-label>
         <nz-form-control nzErrorTip="Tên thành viên không được trống">
-          <input nz-input id="name" name="name" placeholder="Tên thành viên" />
+          <input nz-input id="name" name="fullName" placeholder="Tên thành viên" [(ngModel)]='user.fullName'/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -14,7 +14,7 @@
       <nz-form-item>
         <nz-form-label nz-col nzSpan="8" nzRequired>Mật khẩu</nz-form-label>
         <nz-form-control nzErrorTip="Mật khẩu không được trống">
-          <input nz-input placeholder="Mật khẩu" />
+          <input name='password' nz-input placeholder="Mật khẩu"  [(ngModel)]='user.password'/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -22,7 +22,7 @@
       <nz-form-item>
         <nz-form-label nz-col nzSpan="8" nzRequired>Email</nz-form-label>
         <nz-form-control>
-          <input nz-input placeholder="Email" />
+          <input name='email' nz-input placeholder="Email"  [(ngModel)]='user.email'/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -32,7 +32,7 @@
       <nz-form-item>
         <nz-form-label nz-col nzSpan="8" nzRequired>SĐT</nz-form-label>
         <nz-form-control nzErrorTip="Số điện thoại không được trống">
-          <input nz-input placeholder="Số điện thoại" />
+          <input name='tel' nz-input placeholder="Số điện thoại"  [(ngModel)]='user.tel'/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -40,9 +40,8 @@
       <nz-form-item>
         <nz-form-label nz-col nzSpan="8">Giới tính</nz-form-label>
         <nz-form-control>
-          <nz-select>
-            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+          <nz-select name='gender' [(ngModel)]='user.gender'>
+            <nz-option *ngFor='let gender of genders' [nzValue]="gender.value" [nzLabel]="gender.label"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -62,7 +61,7 @@
   <div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, 30]">
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nz-col nzSpan="8" nzRequired>CMND/CCCD</nz-form-label>
+        <nz-form-label nz-col nzSpan="8">CMND/CCCD</nz-form-label>
         <nz-form-control>
           <input nz-input placeholder="Số CMND/CCCD" />
         </nz-form-control>
@@ -99,11 +98,10 @@
     </div>
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nz-col nzSpan="8" nzRequired>Quyền</nz-form-label>
+        <nz-form-label nz-col nzSpan="8">Quyền</nz-form-label>
         <nz-form-control nzErrorTip="Quyền không được trống">
-          <nz-select nzPlaceHolder="Quyền người dùng">
-            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+          <nz-select name='roleId' nzPlaceHolder="Quyền người dùng" [(ngModel)]='user.roleId'>
+            <nz-option *ngFor='let role of roles' [nzValue]="role.id" [nzLabel]="role.name"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -112,9 +110,8 @@
       <nz-form-item>
         <nz-form-label nz-col nzSpan="8" nzRequired>Trạng thái</nz-form-label>
         <nz-form-control nzErrorTip="Trạng thái không được trống">
-          <nz-select nzPlaceHolder="Trạng thái hoạt động">
-            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+          <nz-select name='status' nzPlaceHolder="Trạng thái người dùng" [(ngModel)]='user.status'>
+            <nz-option *ngFor='let status of statuses' [nzValue]="status.value" [nzLabel]="status.label"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -122,5 +119,5 @@
   </div>
 </form>
 <ng-template #btnSave>
-  <button nz-button nzType="primary" type="submit" form="nzForm">Lưu</button>
+  <button nz-button nzType="primary" type="submit" class='bg-sky-600' form="nzForm">Lưu</button>
 </ng-template>

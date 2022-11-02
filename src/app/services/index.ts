@@ -148,6 +148,56 @@ export class AuthService {
 
 export class UsersService {
   /**
+   * Thay đổi mật khẩu
+   */
+  static userControllerChangePassword(
+    params: {
+      /**  */
+      id: number;
+      /** requestBody */
+      body?: ChangePasswordDto;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + '/users/change-password/{id}';
+      url = url.replace('{id}', params['id'] + '');
+
+      const configs: IRequestConfig = getConfigs('patch', 'application/json', url, options);
+
+      let data = params.body;
+
+      configs.data = data;
+
+      axios(configs, resolve, reject);
+    });
+  }
+  /**
+   * Cập nhật số dư cho người dùng
+   */
+  static userControllerUpdateWallet(
+    params: {
+      /**  */
+      id: number;
+      /** requestBody */
+      body?: UpdateWalletDto;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = basePath + '/users/update-user-waller/{id}';
+      url = url.replace('{id}', params['id'] + '');
+
+      const configs: IRequestConfig = getConfigs('patch', 'application/json', url, options);
+
+      let data = params.body;
+
+      configs.data = data;
+
+      axios(configs, resolve, reject);
+    });
+  }
+  /**
    * Chi tiết Thành viên
    */
   static getOneBase(
@@ -1763,13 +1813,13 @@ export class RegisterDto {
   'email'?: string;
 
   /** Mật khẩu */
-  'password': string;
+  'password'?: string;
 
   /** Tên */
-  'fullName': string;
+  'fullName'?: string;
 
   /** Số điện thoại */
-  'tel': string;
+  'tel'?: string;
 
   /** Phường\/Xã */
   'wardId'?: number;
@@ -1778,7 +1828,7 @@ export class RegisterDto {
   'dob'?: Date;
 
   /** Giới tính */
-  'gender': EnumRegisterDtoGender;
+  'gender'?: EnumRegisterDtoGender;
 
   /** Mã người giới thiệu */
   'referralCode'?: string;
@@ -2115,16 +2165,16 @@ export class UserEntity {
   'email'?: string;
 
   /** Mật khẩu */
-  'password': string;
+  'password'?: string;
 
   /** Lưu các mật khẩu cũ */
   'passwordHistory'?: string[];
 
   /** Tên */
-  'fullName': string;
+  'fullName'?: string;
 
   /** Số điện thoại */
-  'tel': string;
+  'tel'?: string;
 
   /** Role ID */
   'roleId'?: number;
@@ -2175,10 +2225,10 @@ export class UserEntity {
   'dob'?: Date;
 
   /** Giới tính */
-  'gender': EnumUserEntityGender;
+  'gender'?: EnumUserEntityGender;
 
   /** Trạng thái */
-  'status': EnumUserEntityStatus;
+  'status'?: EnumUserEntityStatus;
 
   /** Ảnh đại diện */
   'avatar'?: string;
@@ -2250,10 +2300,10 @@ export class SendOtpForgotPasswordDto {
 
 export class ResetPasswordDto {
   /** Mật khẩu */
-  'password': string;
+  'password'?: string;
 
   /** Số điện thoại */
-  'tel': string;
+  'tel'?: string;
 
   /** Firebase Token */
   'idToken': string;
@@ -2262,6 +2312,28 @@ export class ResetPasswordDto {
     this['password'] = data['password'];
     this['tel'] = data['tel'];
     this['idToken'] = data['idToken'];
+  }
+}
+
+export class ChangePasswordDto {
+  /** Mật khẩu cũ */
+  'oldPassword': string;
+
+  /** Mật khẩu mới */
+  'newPassword': string;
+
+  constructor(data: undefined | any = {}) {
+    this['oldPassword'] = data['oldPassword'];
+    this['newPassword'] = data['newPassword'];
+  }
+}
+
+export class UpdateWalletDto {
+  /** Số tiền */
+  'amount'?: number;
+
+  constructor(data: undefined | any = {}) {
+    this['amount'] = data['amount'];
   }
 }
 

@@ -67,7 +67,7 @@
       <td>{{ item.tel }}</td>
       <td>{{ item.role?.name }}</td>
       <td>{{ item.createdAt | date: 'dd/MM/yyyy' }}</td>
-      <td>{{item.wallet?.amount | number}}</td>
+      <td>{{item.wallets?.[0]?.amount | number}}</td>
       <td>
         <ng-container>
           <nz-tag *ngIf="item.status === 'active'" nzColor='success'>
@@ -91,6 +91,23 @@
           >
             <i nz-icon nzType='edit' nzTheme='outline'></i>
           </button>
+          <button
+            nz-button
+            nzShape="circle"
+            nzType="primary"
+            nz-popover
+            nzPopoverTitle="Cập nhật số dư tài khoản"
+            nzPopoverTrigger="click"
+            [nzPopoverContent]="contentTemplate"
+          >
+            <i nz-icon nzType="dollar-circle" nzTheme="outline"></i>
+          </button>
+          <ng-template #contentTemplate>
+            <div class='w-full flex flex-col items-start justify-start'>
+              <input nz-input [(ngModel)]='item.amountUpdate' placeholder='Nhập số tiền cập nhật'>
+              <button nz-button nzType='primary' class='my-2' (click)='onUpdateWallet(item)'>Cập nhật</button>
+            </div>
+          </ng-template>
           <!--                      <button-->
           <!--                        nz-button-->
           <!--                        nzShape="circle"-->

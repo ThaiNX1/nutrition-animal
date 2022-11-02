@@ -16,6 +16,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 @NgModule({
   declarations: [UserComponent, IdUserComponent],
@@ -37,6 +38,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzCardModule,
     NzInputModule,
     NzDatePickerModule,
+    NzPopoverModule,
   ],
 })
 export class UserModule {}
