@@ -167,11 +167,12 @@ export class CalculateComponent implements OnInit {
     this.itemCalculates.clear();
     const ingredients =
       this.items.value.reduce((arr: IngredientRequest[], curr: any) => {
-        arr.push({
-          code: curr.ingCode,
-          price: curr.ingPrice || 0,
-          weight: curr.ingWeight || 0,
-        });
+        if (!curr.isAddNew)
+          arr.push({
+            code: curr.ingCode,
+            price: curr.ingPrice || 0,
+            weight: curr.ingWeight || 0,
+          });
         return arr;
       }, []) || [];
     const request: CalculateRequestDto = {
